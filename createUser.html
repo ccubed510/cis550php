@@ -1,0 +1,81 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			function formsubmit() {
+				var user = document.getElementById("userName").value;
+				var pwd = document.getElementById("password").value;
+				var fname = document.getElementById("firstName").value;
+				var lname = document.getElementById("lastName").value;
+				var email = document.getElementById("email").value;
+				var bdate = document.getElementById("birthdate").value;
+				var gender = document.getElementById("gender").value;
+				var address = document.getElementById("address").value;
+				if(user.length == 0 || pwd.length == 0 || fname.length == 0 || lname.length == 0 || email.length == 0 || bdate.length == 0 || gender.length == 0 || address.length == 0) {
+					alert("You are missing something.");
+					return;
+				}
+				xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if(xmlhttp.readyState == 4) {
+ 						document.getElementById("user").innerHTML = xmlhttp.responseText;
+					}
+				}
+				var query = "userName=" + user + "&password=" + pwd + "&firstName=" + fname + "&lastName=" + lname + 
+				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address;    
+				xmlhttp.open("GET", "createUser.php?" + query, true);
+				xmlhttp.send(null);
+			}
+		</script>
+	</head>
+	<title> CIS 550 Project </title>
+	<body>
+		Create new User 
+		<div id="loginform" >
+			<form name="login">
+				<table>
+					<tr>
+						<td><label> Username: </label></td>
+						<td><input type="text" id="userName"/></td>
+					</tr>
+					<tr>
+						<td><label> Password: </label></td>
+						<td><input type="text" id="password"/></td>
+					</tr>
+					<tr>
+						<td><label> First name: </label></td>
+						<td><input type="text" id="firstName"/></td>
+					</tr>
+					<tr>
+						<td><label> Last name: </label></td>
+						<td><input type="text" id="lastName"/></td>
+					</tr>
+					<tr>
+						<td><label> Email: </label></td>
+						<td><input type="text" id="email"/></td>
+					</tr>
+					<tr>
+						<td><label> Birthday: </label></td>
+						<td><input type="text" id="birthdate"/></td>
+					</tr>
+					<tr>
+						<td><label> Gender: </label></td>
+						<td><input type="text" id="gender"/></td>
+					</tr>
+					<tr>
+						<td><label> Address: </label></td>
+						<td><input type="text" id="address"/></td>
+					</tr>
+					u
+					
+					
+					
+					
+					<input type="button" onclick="formsubmit()" value="Create User" />
+				</table>
+			</form>
+		</div>
+		<div id="user">
+			Person information will be listed here.
+		</div>
+	</body>
+</html>
