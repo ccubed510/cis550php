@@ -1,3 +1,9 @@
+<html>
+
+<body>
 <?php
-    phpinfo();
+    echo "NEW PAGE! :)"
 ?>
+</body>
+	
+</html>

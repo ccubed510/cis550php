@@ -4,7 +4,7 @@
 		<script type="text/javascript">
 			function logout(){
 				setCookie("username", "", -1);
-				alert(getCookie("username"));
+				history.go(0);
 			}
 			function formsubmit() {
 				var user = document.getElementById("userName").value;
@@ -16,7 +16,8 @@
 				xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
 					if(xmlhttp.readyState == 4) {
-						if(xmlhttp.responseText == "111"){
+						var response = xmlhttp.responseText;
+						if(response === '111'){
 							alert("Incorrect username or password");
 						}
 						else{
@@ -64,9 +65,12 @@
 	</head>
 	<title> CIS 550 Project </title>
 	<body>
-		This is a test body. 
+		This is our awesome project! :)
+		<br/> 
 		<input type="button" onclick="logout()" value="Logout" />
-
+		<form method="LINK" action="getuserinfo.php">
+			<input type="submit" value="CLICK ME!" />
+		</form>
 		<div id="loginform" >
 			<form name="login">
 				<fieldset>

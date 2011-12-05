@@ -12,10 +12,10 @@
     mysql_select_db($db_name, $link);
     $user = $_GET["userName"];
     $password = $_GET["password"];
-    $result = mysql_query("SELECT * FROM Login WHERE userName = '".$user."' AND password = '".$password."'");
+    $result = mysql_query("SELECT * FROM User WHERE userName = '".$user."' AND password = '".$password."'");
 		
     if(mysql_num_rows($result)==0) {
-      echo "111";
+    	echo "111";
     } else {
       echo "<table>";			
 	  
