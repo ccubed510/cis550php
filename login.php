@@ -15,7 +15,7 @@
     $result = mysql_query("SELECT * FROM Login WHERE userName = '".$user."' AND password = '".$password."'");
 		
     if(mysql_num_rows($result)==0) {
-      echo "Incorrect username or password";
+      echo "111";
     } else {
       echo "<table>";			
 	  
