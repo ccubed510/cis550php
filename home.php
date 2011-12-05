@@ -16,7 +16,7 @@
 				xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
 					if(xmlhttp.readyState == 4) {
-						if(xmlhttp.responseText == "Incorrect username or password"){
+						if(xmlhttp.responseText == "111"){
 							alert("Incorrect username or password");
 						}
 						else{
@@ -77,7 +77,6 @@
 					<input type="button" onclick="formsubmit()" value="Login" />
 				</fieldset>
 			</form>
-			<input type="button" onclick="formsubmit()" value="Login" />
 		</div>
 		<div id="user">
 			Person information will be listed here.
