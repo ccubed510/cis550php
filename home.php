@@ -17,7 +17,7 @@
 				xmlhttp.onreadystatechange = function() {
 					if(xmlhttp.readyState == 4) {
 						var response = xmlhttp.responseText;
-						if(response === '111'){
+						if(response.trim() == '111'){
 							alert("Incorrect username or password");
 						}
 						else{
@@ -65,7 +65,7 @@
 	</head>
 	<title> CIS 550 Project </title>
 	<body>
-		This is our awesome project! :)
+		<h1>PENN PHOTO</h1>
 		<br/> 
 		<input type="button" onclick="logout()" value="Logout" />
 		<form method="LINK" action="getuserinfo.php">
