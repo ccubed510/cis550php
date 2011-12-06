@@ -2,10 +2,10 @@
 <html>
 	<head>
 		<script type="text/javascript">
-			function logout(){
+			/*function logout(){
 				setCookie("username", "", -1);
 				history.go(0);
-			}
+			}*/
 			function formsubmit() {
 				var user = document.getElementById("userName").value;
 				var pwd = document.getElementById("password").value;
@@ -17,12 +17,13 @@
 				xmlhttp.onreadystatechange = function() {
 					if(xmlhttp.readyState == 4) {
 						var response = xmlhttp.responseText;
-						if(response.trim() == '111'){
+						if(response.trim() == 'error'){
 							alert("Incorrect username or password");
 						}
 						else{
-							document.getElementById("user").innerHTML = xmlhttp.responseText;
-							document.getElementById("loginform").style.visibility = "hidden";
+							//document.getElementById("user").innerHTML = xmlhttp.responseText;
+							//document.getElementById("loginform").style.visibility = "hidden";
+							load('getUserInfo.php');
 							setCookie("username", user, 1);
 						}
 					}
@@ -61,16 +62,20 @@
 					alert("Please sign in");
 				}
 			}
+			
+			function load(url) {
+				location.href = url;
+			}
 		</script>
 	</head>
 	<title> CIS 550 Project </title>
 	<body>
 		<h1>PENN PHOTO</h1>
 		<br/> 
-		<input type="button" onclick="logout()" value="Logout" />
+		<!--<input type="button" onclick="logout()" value="Logout" />
 		<form method="LINK" action="getuserinfo.php">
 			<input type="submit" value="CLICK ME!" />
-		</form>
+		</form>-->
 		<div id="loginform" >
 			<form name="login">
 				<fieldset>
@@ -82,9 +87,9 @@
 				</fieldset>
 			</form>
 		</div>
-		<div id="user">
+		<!--<div id="user">
 			Person information will be listed here.
-		</div>
+		</div>-->
 		<script type="text/javascript"> checkCookie(); </script>
 	</body>
 </html>

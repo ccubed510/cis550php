@@ -15,7 +15,7 @@
     $result = mysql_query("SELECT * FROM User WHERE userName = '".$user."' AND password = '".$password."'");
 		
     if(mysql_num_rows($result)==0) {
-    	echo "111";
+    	echo "error";
     } else {
       echo "<table>";			
 	  
