@@ -29,45 +29,73 @@
 			function load(url) {
 				location.href = url;
 			}
+			
+			function getTopPhotos() {
+				xmlhttp=new XMLHttpRequest();
+				xmlhttp.onreadystatechange=function() {
+					if (xmlhttp.readyState==4) {
+						var response = xmlhttp.responseText;
+						if(response.trim() == 'error'){
+							alert("Picture error");
+						}
+						else {
+							document.getElementById("topPhotos").innerHTML=xmlhttp.responseText;
+						}
+					}
+				}
+				xmlhttp.open("GET", "getTopPhotos.php", true);
+				xmlhttp.send(null);
+			}
 		</script>
 	</head>
 	<title>Profile</title>
 <body>
 	<h1>Welcome, <script type="text/javascript"> document.write(getCookie("username")); </script>!</h1>
-	<h2>Profile:</h2>
-	<?php
-	    $db_username = "yannie";
-	    $db_password = "abcd";
-	    $db_host = "fling.seas.upenn.edu";
-	    $db_name = "yannie";
-	
-	    $link = mysql_connect($db_host, $db_username, $db_password);
-	    if (!$link) {
-	      die('Could not connect: ' . mysql_error());
-	    }
-		
-		mysql_select_db($db_name, $link);
-	    $user = $_COOKIE["username"];
-	    $result = mysql_query("SELECT * FROM User WHERE userName = '".$user."'");
-			
-	    if(mysql_num_rows($result)==0) {
-	    	echo "111";
-	    } else {
-	      echo "<table>";			
-		  
-	      $row = mysql_fetch_array($result) ;
-	      echo "<tr>";
-	      echo "<td> First Name: " . $row['first_name'] . "</td></tr>";
-		  echo "<td> Last Name: " . $row['last_name'] . "</td></tr>";
-		  echo "<td> Email: " . $row['email'] . "</td></tr>";
-		  echo "<td> Birthday: " . $row['birth_date'] . "</td></tr>";
-		  echo "<td> Gender: " . $row['gender'] . "</td></tr>";
-		  echo "<td> Address: " . $row['address'] . "</td></tr>";
-	      
-	      echo "</table>";
-	    }
-	    mysql_close($link);
-	?>
+	<table>
+		<tr>
+			<td colspan="2"><div id="topPhotos"><script type="text/javascript"> getTopPhotos(); </script></div>
+			</td>
+		</tr>
+		<tr>
+			<td style="background-color:#39B7CD;width:100px;text-align:top;">
+				<h3>Profile:</h3>
+				<?php
+				    $db_username = "yannie";
+				    $db_password = "abcd";
+				    $db_host = "fling.seas.upenn.edu";
+				    $db_name = "yannie";
+				
+				    $link = mysql_connect($db_host, $db_username, $db_password);
+				    if (!$link) {
+				      die('Could not connect: ' . mysql_error());
+				    }
+					
+					mysql_select_db($db_name, $link);
+				    $user = $_COOKIE["username"];
+				    $result = mysql_query("SELECT * FROM User WHERE userName = '".$user."'");
+						
+				    if(mysql_num_rows($result)==0) {
+				    	echo "Error: unable to get user info.";
+				    } else {
+				      echo "<table>";			
+					  
+				      $row = mysql_fetch_array($result) ;
+				      echo "<tr>";
+				      echo "<td> First Name: " . $row['first_name'] . "</td></tr>";
+					  echo "<td> Last Name: " . $row['last_name'] . "</td></tr>";
+					  echo "<td> Email: " . $row['email'] . "</td></tr>";
+					  echo "<td> Birthday: " . $row['birth_date'] . "</td></tr>";
+					  echo "<td> Gender: " . $row['gender'] . "</td></tr>";
+					  echo "<td> Address: " . $row['address'] . "</td></tr>";
+				      
+				      echo "</table>";
+				    }
+				    mysql_close($link);
+				?>
+			</td>
+			<td style="background-color:#82CFFD;height:200px;width:400px;text-align:top;">Friend Updates Here!</td>
+		</tr>
+	</table>
 	<br />
 	<input type="button" onclick="logout()" value="Logout" />
 

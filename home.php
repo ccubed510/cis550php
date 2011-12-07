@@ -55,12 +55,12 @@
 			function checkCookie() {
 				var username = getCookie("username");
 				if(username != null && username != "" && username.length != 0) {
-					alert("Welcome again " + username);
-					document.getElementById("loginform").style.visibility = "hidden";
+					load('getUserInfo.php');
 					
-				} else {
+				} 
+				/*else {
 					alert("Please sign in");
-				}
+				}*/
 			}
 			
 			function load(url) {
@@ -90,6 +90,10 @@
 		<!--<div id="user">
 			Person information will be listed here.
 		</div>-->
+		<form method="LINK" action="createUser.html">
+			New to PennPhoto?
+			<input type="submit" value="SIGN ME UP!" />
+		</form>
 		<script type="text/javascript"> checkCookie(); </script>
 	</body>
 </html>
