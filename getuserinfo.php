@@ -19,7 +19,7 @@
 			<tr>
 				<td style="background-color:#39B7CD;width:50px;text-align:top;">
 					<h3>Profile:</h2>
-					<? include ('userinfo.php'); ?>
+					<? include ('php/userinfo.php'); ?>
 				</td>
 				<td style="background-color:#82CFFD;height:200px;width:500px;text-align:top;">Friend Updates Here!</td>
 			</tr>

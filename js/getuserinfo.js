@@ -19,8 +19,7 @@ function setCookie(c_name, value, exdays) {
 
 function logout() {
 	setCookie("username", "", -1);
-	history.go(0);
-	load('home.php');
+	load('home.html');
 }
 
 function load(url) {

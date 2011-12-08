@@ -10,6 +10,7 @@
 				var bdate = document.getElementById("birthdate").value;
 				var gender = document.getElementById("gender").value;
 				var address = document.getElementById("address").value;
+				var roleindex = document.getElementById("roles").selectedIndex;
 				if(user.length == 0 || pwd.length == 0 || fname.length == 0 || lname.length == 0 || email.length == 0 || bdate.length == 0 || gender.length == 0 || address.length == 0) {
 					alert("You are missing something.");
 					return;
@@ -20,11 +21,37 @@
  						document.getElementById("user").innerHTML = xmlhttp.responseText;
 					}
 				}
+				var rolesubmit = "";
+				switch(roleindex){
+					case 0: alert("Please select a role.");
+					return;
+					case 1: rolesubmit += "&advisedBy=" + document.getElementById("advisedBy").value;
+					break;
+					case 2: rolesubmit += "";
+					break;
+				}
 				var query = "userName=" + user + "&password=" + pwd + "&firstName=" + fname + "&lastName=" + lname + 
-				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address;    
-				xmlhttp.open("GET", "createUser.php?" + query, true);
+				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address + rolesubmit;    
+				xmlhttp.open("GET", "/php/createUser.php?" + query, true);
 				xmlhttp.send(null);
 			}
+			
+			function selectRole(){
+				var role = document.getElementById("roles");
+				var student = "<td><label> Advised By: </label></td>" +
+						"<td><input type=\"text\" id=\"advisedBy\"/></td>";
+				var professor = "<td><label> Advises: </label></td>" +
+						"<td><input type=\"text\" id=\"advises\"/></td>";
+				switch(role.selectedIndex){
+					case 0: document.getElementById("roleinfo").innerHTML = "";
+					break;
+					case 1: document.getElementById("roleinfo").innerHTML = student;
+					break;
+					case 2: document.getElementById("roleinfo").innerHTML = "";
+					break;
+				} 
+			}
+			
 		</script>
 	</head>
 	<title> CIS 550 Project </title>
@@ -65,17 +92,22 @@
 						<td><label> Address: </label></td>
 						<td><input type="text" id="address"/></td>
 					</tr>
-					u
+					<tr> <td><label> Student or Professor: </label>
+						<select id="roles" onchange="javascript:selectRole();">
+							<option></option>
+							<option value="student"> Student </option>
+							<option value="professor"> Professor </option>
+						</select></td>
+					</tr>
+					<tr id="roleinfo"> </tr>
 					
 					
 					
 					
 					<input type="button" onclick="formsubmit()" value="Create User" />
+					<tr><td><div id="user"></td></div></tr>
 				</table>
 			</form>
-		</div>
-		<div id="user">
-			Person information will be listed here.
 		</div>
 	</body>
 </html>

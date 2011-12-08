@@ -1,0 +1,31 @@
+<?php   session_start();?>
+<html>
+	<head>
+		<script type="text/javascript" src="/js/home.js"></script>
+	</head>
+	<title> CIS 550 Project </title>
+	<body>
+		<h1>PENN PHOTO</h1>
+		<br/> 
+
+		<div id="loginform" >
+			<form name="login">
+				<fieldset>
+					<label> Username: </label>
+					<input type="text" id="userName"/>
+					<label> Password: </label>
+					<input type="password" id="password"/>
+					<input type="button" onclick="formsubmit()" value="Login" />
+				</fieldset>
+			</form>
+		</div>
+		<!--<div id="user">
+			Person information will be listed here.
+		</div>-->
+		<form method="LINK" action="createUser.html">
+			New to PennPhoto?
+			<input type="submit" value="SIGN ME UP!" />
+		</form>
+		<script type="text/javascript"> checkCookie(); </script>
+	</body>
+</html>
