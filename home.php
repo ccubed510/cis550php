@@ -21,7 +21,7 @@
 							alert("Incorrect username or password");
 						}
 						else{
-							load('getUserInfo.php');
+							load('getuserinfo.php');
 							setCookie("username", user, 1);
 						}
 					}

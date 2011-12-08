@@ -1,0 +1,14 @@
+div.panel, p.flip, div.optionsPanel, p.optionsToggle {
+	margin: 0px;
+	padding: 5px;
+	text-align: center;
+	background: #E5EECC;
+	border: solid 1px #C3C3C3;
+}
+div.panel {
+	height: 300px;
+	display: none;
+}
+div.optionsPanel {
+	display: none;
+}
