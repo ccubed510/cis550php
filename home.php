@@ -77,7 +77,7 @@
 					<label> Username: </label>
 					<input type="text" id="userName"/>
 					<label> Password: </label>
-					<input type="text" id="password"/>
+					<input type="password" id="password"/>
 					<input type="button" onclick="formsubmit()" value="Login" />
 				</fieldset>
 			</form>

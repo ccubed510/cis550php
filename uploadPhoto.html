@@ -1,0 +1,74 @@
+<html>
+	<head>
+		<title>Upload A Photo</title>
+		<script type="text/javascript">
+			function formsubmit() {
+				var url = document.getElementById("url").value;
+				if(url.length == 0) {
+					alert("You must enter a url.");
+					return;
+				}
+				xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if(xmlhttp.readyState == 4) {
+						var response = xmlhttp.responseText;
+						if (response.trim() == 'error') {
+							alert("Unable to upload photo.");
+						}
+						else {
+							alert("Upload successful");
+						}
+					}
+				}
+			}
+			
+			function radioChecker() {
+				if (document.upload.users.checked) {
+					document.upload.userList.disabled = false;
+					document.upload.circleList.disabled = true;
+					document.upload.userList.focus();
+				}
+				else if (document.upload.circles.checked) {
+					document.upload.circleList.disabled = false;
+					document.upload.userList.disabled = true;
+					document.upload.circleList.focus();
+				}
+				else {
+					document.upload.userList.disabled = true;
+					document.upload.circleList.disabled = true;
+				}
+			}
+			
+			function load(url) {
+				location.href = url;
+			}
+		</script>
+		
+		<style type="text/css">
+			.indent {
+				margin-left: 2em;
+			}
+			.indent2 {
+				margin-left: 4em;
+			}
+		</style>
+	</head>
+	<body>
+		<h3>Upload a Photo:</h3>
+		<div id="uploadForm">
+			<form name="upload">
+				<fieldset>
+					URL:<input type="text" id="url" size="101" /><br />
+					Visibility: <br />
+					<input class="indent" type="radio" name="visibility" id="public" onclick="radioChecker()" /> Public<br />
+					<input class="indent" type="radio" name="visibility" id="users" onclick="radioChecker();" /> Limit to users (specify by "firstname lastname" with semicolons between friends):<br />
+					<input class="indent2" type="text" name="userList" disabled="true" size="100" /> <br />
+					<input class="indent" type="radio" name="visibility" id="circles" onclick="radioChecker();" /> Limit to circles (specify by "circle name" with semicolons between circles): <br />
+					<input class="indent2" type="text" name="circleList" disabled="true" size="100" /> </br />
+					<input type="button" onclick="formsubmit()" value="Upload" />
+				</fieldset>
+			</form>
+		</div>
+		<input type="button" onclick="load('getuserinfo.php')" value="Cancel" />
+	</body>
+</html>
