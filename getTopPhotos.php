@@ -13,16 +13,17 @@
     $user = $_COOKIE["username"];
     $result = mysql_query("SELECT P.url FROM Photo P, User U, Rating R WHERE U.userName = '".$user."' AND P.userID=U.userID AND R.userID=U.userID AND R.photoID=P.photoID ORDER BY R.rating DESC");
 		
+	$width = 200;
+	
+		
     if(mysql_num_rows($result)==0) {
     	echo "error";
     } else {
-      echo "<table border='1'>
-      <tr>";
       	for ($i=0; $i<3 && $row = mysql_fetch_array($result); $i++){
-	  		echo "<td><img src=\"" . $row['url'] . "\" alt=\"img" . $i ."\"</td>";
+      		list($picw, $pich) = getimagesize($row['url']);
+			$percentage = $width / $picw;
+	  		echo "<img src=\"" . $row['url'] . "\" width=\"".$percentage."%\" height=\"".$percentage."%\" alt=\"img" . $i ."\" />";
 		}
-	  echo "</tr>
-	  </table>";
 	}
 	mysql_close($link);			
 ?>

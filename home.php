@@ -21,8 +21,6 @@
 							alert("Incorrect username or password");
 						}
 						else{
-							//document.getElementById("user").innerHTML = xmlhttp.responseText;
-							//document.getElementById("loginform").style.visibility = "hidden";
 							load('getUserInfo.php');
 							setCookie("username", user, 1);
 						}
@@ -72,10 +70,7 @@
 	<body>
 		<h1>PENN PHOTO</h1>
 		<br/> 
-		<!--<input type="button" onclick="logout()" value="Logout" />
-		<form method="LINK" action="getuserinfo.php">
-			<input type="submit" value="CLICK ME!" />
-		</form>-->
+
 		<div id="loginform" >
 			<form name="login">
 				<fieldset>
