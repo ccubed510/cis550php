@@ -26,20 +26,24 @@ echo $rowcheck;
 if ($rowcheck != NULL) {
 	echo "Username already exists!";
 } else {
-	$result = mysql_query("INSERT INTO User (first_name, last_name, email, birth_date, gender, address, password, userName) VALUES ('" . $fname . "', '" . $lname . "', '" . $email . "', '" . $bdate . "', '" . $gender . "', '" . $address . "', '" . $password . "', '" . $user . "')");
 	if ($advisedBy != NULL) {
-		$findProf = mysql_query("SELECT * FROM User U WHERE U.userName='" .$advisedBy."'");
-		if(empty($findProf)){
-			echo "Professor does not exist. Please try again.";
-			return;
+		$findProf = mysql_query("SELECT * FROM Professor WHERE userName = '" . $advisedBy . "'");
+		$findProfRow = mysql_fetch_row($findProf);
+		if ($findProfRow != NULL) {
+			$result = mysql_query("INSERT INTO User (first_name, last_name, email, birth_date, gender, address, password, userName) VALUES ('" . $fname . "', '" . $lname . "', '" . $email . "', '" . $bdate . "', '" . $gender . "', '" . $address . "', '" . $password . "', '" . $user . "')");
+			mysql_query("INSERT INTO Student (userName, advisor) VALUES ('" . $user . "', '" . $advisedBy . "')");
+			mysql_query("INSERT INTO Professor (userName, advisee) VALUES ('" . $advisedBy . "', '" . $user . "')");
+			echo "Success, added " . $user . " to the database. Please return to <a href='home.html'> home to login </a>";
+
+		} else {
+			echo "Professor does not exist. Please try again.".$advisedBy;
 		}
-		mysql_query("INSERT INTO Student (userName, advisor) VALUES ('" .$user."', '".$advisedBy."')");
-		mysql_query("INSERT INTO Professor (userName, advisee) VALUES ('" .$advisedBy."', '".$user."')");
-	} 
-	else{
-		mysql_query("INSERT INTO Professor (userName) VALUES ('" .$user."')");
+	} else {
+		$result = mysql_query("INSERT INTO User (first_name, last_name, email, birth_date, gender, address, password, userName) VALUES ('" . $fname . "', '" . $lname . "', '" . $email . "', '" . $bdate . "', '" . $gender . "', '" . $address . "', '" . $password . "', '" . $user . "')");
+		mysql_query("INSERT INTO Professor (userName) VALUES ('" . $user . "')");
+		echo "Success, added " . $user . " to the database. Please return to <a href='home.html'> home to login </a>";
+
 	}
-	echo "Success, added " .$user. " to the database. Please return to <a href='home.html'> home to login </a>";
 
 }
 
