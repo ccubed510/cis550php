@@ -14,7 +14,7 @@
 <body>
     <div class="wrapper">
         <h1>PennPhotos</h1>
-        <a href="getuserinfo">Back to Profile</a>
+        <a href="getuserinfo.php">Back to Profile</a>
 
         <ul class="navigationTabs">
             <li><a rel="Photos">My Photos</a></li>
