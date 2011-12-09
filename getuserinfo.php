@@ -28,7 +28,8 @@
 					<table>
 						<tr>
 							<td><a href="uploadPhoto.html">Upload a photo!</a></td>
-							<td>Add a new friend!</td>
+							<td><a href="addFriend.php">Add a new friend!</a></td>
+							<td><a href="addFriend.php">Add an existing friend to a new circle!</a></td>
 						</tr>
 					</table>
 				</div>
