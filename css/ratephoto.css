@@ -1,0 +1,49 @@
+.content {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 10px 0;
+	width: 100%;
+	height: 100%;
+	background: #ffffff;
+}
+
+.container {
+	width: 60%;
+	max-width: 800px;
+	min-width: 600px;
+	background: #FFFFFF;
+	height: 100%;
+	margin: 0 auto;
+}
+
+.header {
+	background: #6F7D94;
+	padding: 0 10px 0 10px;
+	height: 60px;
+	line-height: 60px;
+	vertical-align: middle;
+}
+
+h1 {
+	font-family: Palatino Linotype;
+	font-size: 24pt;
+	color: #ffffff;
+}
+
+.photo {
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	border-style: inset;
+	border-width: medium;
+	visibility: hidden;
+}
+
+.photoInfo {
+	text-align: center;	
+}
+
+.centered {
+	margin-left: auto;
+	margin-right: auto;	
+}
