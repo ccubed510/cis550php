@@ -3,7 +3,11 @@
 		<link href="css/ratephoto.css" type="text/css" rel="stylesheet"/>
 		<script type="text/javascript">
 			function formsubmit() {
-
+				var user = getCookie("username");
+				if (user == null){
+					alert("Please sign in");
+					return;
+				}
 				var tags = document.getElementById("tags").value;
 				xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
@@ -37,16 +41,31 @@
 				xmlhttp.open("GET", "/php/getRating.php?" + query, true);
 				xmlhttp.send(null);
 			}
+
+			function getCookie(c_name) {
+				var i, x, y, ARRcookies = document.cookie.split(";");
+				for( i = 0; i < ARRcookies.length; i++) {
+					x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+					y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+					x = x.replace(/^\s+|\s+$/g, "");
+					if(x == c_name) {
+						return unescape(y);
+					}
+				}
+			}
 		</script>
 	</head>
 	<title>Search Photos</title>
 	<body>
 		<div class="container">
 			<div class="header">
-				<h1>Search your visible photos</h1>
+
+				<div><h1>Search your visible photos</h1></div>
 			</div>
 			<div class="content">
 				<div id="searchform" >
+					<div id="logout"><a href="getuserinfo.php">Home</a></div>
+					<br/>
 					Please enter the photo tags you would like to search (leave spaces between the tags)
 					<form name="login">
 						<fieldset>
@@ -59,7 +78,7 @@
 				<div class="centered">
 					<table id = "results"></table>
 					<div class="photoInfo" id="mainPhotoInfo"></div>
-				</div>	
+				</div>
 			</div>
 		</div>
 	</body>
