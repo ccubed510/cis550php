@@ -53,3 +53,10 @@ h1 {
 #headertext{
 	float: left;
 }
+
+table.friends {
+	border-width: 1px;
+	border-color: black;
+	padding: 2px;
+	
+}

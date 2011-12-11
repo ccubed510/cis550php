@@ -15,13 +15,37 @@ $fetchArray = mysql_fetch_array($fetchID);
 $userID = $fetchArray['userID'];
 $tags = $_GET['tags'];
 $tagarray = explode(" ", $tags);
+$friends = $_GET['friends'];
+$friendarray = explode(" ", $friends);
+$circles = $_GET['circles'];
+$circlearray = explode(" ", $circles);
 
-//get the number of photos viewable by the user
-$vquery = mysql_query("SELECT COUNT(g.photoID) AS Count FROM (SELECT DISTINCT photoID AS photoID FROM Visible WHERE viewerID = \"" . $userID . "\") AS g");
-$v = mysql_fetch_array($vquery);
-$numViewable = $v['Count'];
+$query = "SELECT DISTINCT V.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE V.viewerID = '" . $userID . "' AND V.photoID = P.photoID";
 
-$pquery = mysql_query("SELECT DISTINCT photoID AS photoID FROM Visible WHERE viewerID = \"" . $userID . "\"");
+if (sizeof($friendarray) > 0) {
+	$friend1 = $friendarray[0];
+	$query = $query . " AND (P.userID = '" . $friend1 . "' ";
+
+	foreach ($friendarray as $friend) {
+		if ($friend != $friend1) {
+			$query = $query. " OR P.userID = '" . $friend."'";
+		}
+	}
+	$query = $query . ")";
+}
+if (sizeof($circlearray > 0)) {
+	$circle1 = $circlearray[0];
+	$query = $query . " AND (C.circleID = '" . $circle1 . "' ";
+
+	foreach ($circlearray as $circle) {
+		if ($circle != $circle1) {
+			$query = $query. " OR C.circleID = '" . $circle."'";
+		}
+	}
+	$query = $query . ")";
+}
+
+$pquery = mysql_query($query);
 
 $searchArray[] = Array();
 
@@ -39,11 +63,11 @@ foreach ($searchArray as $photo => $score) {
 		$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
 		$p = mysql_fetch_array($pquery);
 		$url = $p['url'];
-		echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '".$photo."'/></td>";
+		echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
 	}
 }
 
-//Dynamic Programming Algorithm to get Ranking for Partial String Matching 
+//Dynamic Programming Algorithm to get Ranking for Partial String Matching
 function getMatch(&$photoID, &$tag) {
 	$getTags = mysql_query("SELECT tag FROM PhotoTag WHERE photoID = \"" . $photoID . "\"");
 	$tcquery = mysql_query("SELECT COUNT(tag) AS count FROM PhotoTag WHERE photoID = \"" . $photoID . "\"");
