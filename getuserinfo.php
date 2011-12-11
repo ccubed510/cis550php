@@ -24,6 +24,9 @@
 				<td style="background-color:#82CFFD;height:200px;width:500px;text-align:top;">Friend Updates Here!</td>
 			</tr>
 			<tr>
+				<? include ('php/friendRec.php'); ?>
+			</tr>
+			<tr>
 				<td colspan="2"><div class="optionsPanel">
 					<table>
 						<tr>

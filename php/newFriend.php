@@ -62,25 +62,6 @@
 		
 		echo "Friend successfully added!";
 	}
-	
-	//Fetches all the circle names a user owns.
-	function getCircles() {
-		//Get userID of user.
-		$user = $_COOKIE['username'];
-		$result = mysql_query("SELECT U.userID FROM User U WHERE U.userName='".$user."'");
-		$row = mysql_fetch_array($result);
-		$userID = $row['userID'];
-		
-		$strQuery = "SELECT circleID, name FROM Circle WHERE userID='".$userID."'";
-		$result = mysql_query($strQuery);
-		$output = "";
-		for ($i=0; $i<mysql_num_rows($result); $i++) {
-			$row = mysql_fetch_array($result);
-			$output = $output."<input type='checkbox' class='indent' name='circleName' value='".$row['circleID']."' id='".$row['circleID']."' />".$row['name']."<br />";
-		}
-		if (output == "") {
-			return False;
-		}
-		return $output;
-	}
+
+	mysql_close($link);
 ?>
