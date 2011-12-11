@@ -15,7 +15,7 @@ $photoID = $_GET["photoID"];
 $avgquery = mysql_query("SELECT AVG(R.rating) AS Average FROM Rating R WHERE R.photoID = \"" . $photoID . "\"");
 $avg = mysql_fetch_array($avgquery);
 
-echo "Average score: " . $avg['Average'];
+echo "Average score for photo ".$photoID." is : " . $avg['Average'];
 
 mysql_close($link);
 ?>

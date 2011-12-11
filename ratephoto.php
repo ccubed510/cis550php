@@ -23,7 +23,7 @@
 				var url = object.src;
 				var id = object.id;
 				var img = "<img src='" + url + "' height=300 id = '" + id + "' class='centered'/>";
-				var info = document.getElementById("mainPhoto").innerHTML = img;
+				document.getElementById("mainPhoto").innerHTML = img;
 				document.getElementById("mainPhoto").style.visibility = "visible";
 				getRating(id);
 			}
