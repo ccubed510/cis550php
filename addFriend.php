@@ -33,7 +33,7 @@
 						}
 					}
 				}
-				xmlhttp.open("GET", "/php/newFriend.php?firstName=" + firstName + "&lastName=" + lastName + "&circleIDs=" + circleIDs + "&newCircle=" + newCircle);
+				xmlhttp.open("GET", "/php/newFriend.php?firstName=" + firstName + "&lastName=" + lastName + "&circleIDs=" + circleIDs + "&newCircle=" + newCircle, true);
 				xmlhttp.send();
 			}
 			
@@ -71,13 +71,54 @@
 					<label class="indent">Last name: </label><input type="text" id="lastName" /><br />
 					<br />
 					<?php
-					include ('php/newFriend.php');
+					//Fetches all the circle names a user owns.
+					$db_username = "yannie";
+				    $db_password = "abcd";
+				    $db_host = "fling.seas.upenn.edu";
+				    $db_name = "yannie";
+					
+					$link = mysql_connect($db_host, $db_username, $db_password);
+				    if (!$link) {
+				      die('Could not connect: ' . mysql_error());
+				    }
+					
+					mysql_select_db($db_name, $link);
+					$first = "";
+					$last = "";
+					if(empty($_GET)) {
+    					echo "<hr>";	
+					} else {
+						$first = $_GET['first'];
+						$last = $_GET['last'];
+						echo "<script type=\"text/javascript\">document.getElementById(\"firstName\").value='".$first."';document.getElementById(\"lastName\").value='".$last."';</script>";
+					}
+					
+					function getCircles() {
+						//Get userID of user.
+						$user = $_COOKIE['username'];
+						$result = mysql_query("SELECT U.userID FROM User U WHERE U.userName='".$user."'");
+						$row = mysql_fetch_array($result);
+						$userID = $row['userID'];
+						
+						$strQuery = "SELECT circleID, name FROM Circle WHERE userID='".$userID."'";
+						$result = mysql_query($strQuery);
+						$output = "";
+						for ($i=0; $i<mysql_num_rows($result); $i++) {
+							$row = mysql_fetch_array($result);
+							$output = $output."<input type='checkbox' class='indent' name='circleName' value='".$row['circleID']."' id='".$row['circleID']."' />".$row['name']."<br />";
+						}
+						if ($output == "") {
+							return False;
+						}
+						return $output;
+					}
 					$result = getCircles();
 					if ($result!=False) {
 						echo "<label>Add to Existing Circle:<br /></label>";
 						echo $result;
 						echo "<br /><label class='indent'>OR</label><br /><br />";
 					}
+					mysql_close($link);
 					?>
 					Add to New Circle:<input type="text" id="circleName" /><br />
 					<input type="button" onclick="formsubmit()" value="Add" />
