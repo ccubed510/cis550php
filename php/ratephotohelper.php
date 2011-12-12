@@ -25,7 +25,7 @@ if (mysql_fetch_row($permission) != NULL) {
 	} else {
 		mysql_query("INSERT INTO Rating (photoID, rating, userID) VALUES (" . $photoID . ", " . $rating . ", " . $userID . ")");
 		$avgquery = mysql_query("SELECT AVG(R.rating) AS Average FROM Rating R WHERE R.photoID = \"" . $photoID . "\" GROUP BY photoID");
-		$avg = mysql_fetch_row($avgquery);
+		$avg = mysql_fetch_array($avgquery);
 		$a = $avg['Average'];
 		echo "You rated this photo as a " . $rating . ".";
 		echo "Average score: " . $a;
