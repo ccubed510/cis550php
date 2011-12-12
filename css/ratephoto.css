@@ -30,6 +30,12 @@ h1 {
 	color: #ffffff;
 }
 
+h2 {
+	font-family: Palatino Linotype;
+	color: #ffffff;
+}
+
+
 .photo {
 	margin-left: auto;
 	margin-right: auto;
@@ -61,4 +67,8 @@ table.friends {
 	border-color: black;
 	padding: 2px;
 	
+}
+
+.hidden{
+	visibility: hidden;
 }

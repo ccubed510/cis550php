@@ -20,6 +20,7 @@ function selectPhoto(object) {
 	var img = "<img src='" + url + "' width=100% id = '" + id + "' class='centered'/>";
 	document.getElementById("mainPhoto").innerHTML = img;
 	document.getElementById("mainPhoto").style.visibility = "visible";
+	document.getElementById("extra").style.visibility = "visible";
 	document.getElementById("tagResults").innerHTML = "";
 	getRating(id);
 	createTagQuery(id);

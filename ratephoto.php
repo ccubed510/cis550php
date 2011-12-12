@@ -18,9 +18,10 @@
 					<?php include('php/ratephotoselect.php')
 					?>
 				</table>
-				<table width="100%">
+				
+				<table width="600px" align="left" id="extra" class="hidden">
 					<tr>
-						<td valign="top"><h2>Tags</h2><div id="tags"></div></td>
+						<td width="20%" valign="top" bgcolor="6F7D94"><h2>Tags</h2><div id="tags"></div></td>
 						<td ><div class="photo" id="mainPhoto"></div></td>
 					</tr>
 					<tr>
