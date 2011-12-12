@@ -14,20 +14,6 @@
 	$url = $_GET['url'];
 	$visibility = $_GET['visibility'];
 	$acl = $_GET['acl'];
-	
-	//For testing
-	/*echo $user;
-	echo "<br />";
-	echo $url;
-	echo "<br />";
-	echo $visibility;
-	echo "<br />";
-	echo $acl;
-	echo "<br />";
-	$user = "brchiang";
-	$url = "http://lashgirl.me/wp-content/uploads/2011/06/Nemo3.jpg";
-	$visibility = "circles";
-	$acl = "friends;peeps";*/
 		
 	//Get userID of user uploading photo.
 	$result = mysql_query("SELECT U.userID FROM User U WHERE U.userName='".$user."'");
@@ -37,6 +23,7 @@
 	// If user choses public, simply adds photo to Photo table specifying photo as public.
 	if ($visibility == "public") {
 		mysql_query("INSERT INTO Photo (userID, url, visibility) VALUES ('".$userID."', '".$url."', 'public')");
+		echo "Photo successfully uploaded.";
 	}
 	
 	// Else, user specifies restricted set of people who can view photos.
