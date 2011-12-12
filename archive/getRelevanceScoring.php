@@ -12,11 +12,11 @@ if (!$link) {
 mysql_select_db($db_name, $link);
 $user = $_COOKIE["username"];
 
-$photoID = 14;
+$photoID = 180035;
 
 $fetchID = mysql_query("SELECT User.userID FROM User WHERE User.userName =\"" . $user . "\"");
 $fetchArray = mysql_fetch_array($fetchID);
-$userID = 4;
+$userID = 28541;
 
 //get the total number of ratings on the photo.
 
@@ -26,7 +26,7 @@ $ncount = $countarray['Count'];
 
 //get the total sum of ratings on the photo.
 
-$countquery = mysql_query("SELECT SUM(*) AS Sum FROM Rating R WHERE R.photoID = \"" . $photoID . "\""); 
+$countquery = mysql_query("SELECT SUM(rating) AS Sum FROM Rating R WHERE R.photoID = \"" . $photoID . "\""); 
 $countarray = mysql_fetch_array($countquery);
 $nsum = $countarray['Sum'];
 
@@ -38,14 +38,15 @@ $fcount = $friendarray['Count'];
 
 //get the total sum of ratings by friends of the user.
 
-$friendquery = mysql_query("SELECT SUM(*) AS Sum FROM ( SELECT DISTINCT Fphoto.userID FROM Circle C, Friend F, (SELECT * FROM Rating R WHERE R.photoID = \"" . $photoID . "\") Fphoto WHERE F.circleID = C.circleID AND F.friendID = Fphoto.userID AND C.userID =  \"".$userID."\") Grouping");
+$friendquery = mysql_query("SELECT SUM(rating) AS Sum FROM ( SELECT DISTINCT Fphoto.rating AS rating FROM Circle C, Friend F, (SELECT * FROM Rating R WHERE R.photoID = \"" . $photoID . "\") Fphoto WHERE F.circleID = C.circleID AND F.friendID = Fphoto.userID AND C.userID =  \"".$userID."\") Grouping");
 $friendarray = mysql_fetch_array($friendquery);
 $fsum = $friendarray['Sum'];
 
 $number = $ncount + 0.5*$fcount;
 $sum = ($nsum + 0.5*$fsum) / $ncount;
 $relevance = 0.2*$number + 0.8*$sum;  
-
+echo $nsum;
+echo $fsum;
 echo $relevance;
 //echo "Average score: " . $avg['Average'];
 

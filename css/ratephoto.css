@@ -9,8 +9,8 @@
 
 .container {
 	width: 60%;
-	max-width: 800px;
-	min-width: 600px;
+	max-width: 700px;
+	min-width: 500px;
 	background: #FFFFFF;
 	height: 100%;
 	margin: 0 auto;
@@ -33,7 +33,7 @@ h1 {
 .photo {
 	margin-left: auto;
 	margin-right: auto;
-	width: 500px;
+	width: 100%;
 	border-style: inset;
 	border-width: medium;
 	visibility: hidden;
@@ -46,6 +46,8 @@ h1 {
 .centered {
 	margin-left: auto;
 	margin-right: auto;	
+	text-align: center;
+	width: 100%;
 }
 .logout{
 	float: right;

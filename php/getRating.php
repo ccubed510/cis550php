@@ -11,11 +11,46 @@ if (!$link) {
 
 mysql_select_db($db_name, $link);
 $photoID = $_GET["photoID"];
+$user = $_COOKIE["username"];
 
-$avgquery = mysql_query("SELECT AVG(R.rating) AS Average FROM Rating R WHERE R.photoID = \"" . $photoID . "\"");
-$avg = mysql_fetch_array($avgquery);
+$fetchID = mysql_query("SELECT User.userID FROM User WHERE User.userName =\"" . $user . "\"");
+$fetchArray = mysql_fetch_array($fetchID);
+$userID = $fetchArray['userID'];
 
-echo "Average score for photo ".$photoID." is : " . $avg['Average'];
+//get the total number of ratings on the photo.
+
+$countquery = mysql_query("SELECT COUNT(*) AS Count FROM Rating R WHERE R.photoID = \"" . $photoID . "\""); 
+$countarray = mysql_fetch_array($countquery);
+$ncount = $countarray['Count'];
+
+//get the total sum of ratings on the photo.
+
+$countquery = mysql_query("SELECT SUM(rating) AS Sum FROM Rating R WHERE R.photoID = \"" . $photoID . "\""); 
+$countarray = mysql_fetch_array($countquery);
+$nsum = $countarray['Sum'];
+
+//get the total number of ratings by friends of the user.
+
+$friendquery = mysql_query("SELECT COUNT(*) AS Count FROM ( SELECT DISTINCT Fphoto.userID FROM Circle C, Friend F, (SELECT * FROM Rating R WHERE R.photoID = \"" . $photoID . "\") Fphoto WHERE F.circleID = C.circleID AND F.friendID = Fphoto.userID AND C.userID =  \"".$userID."\") Grouping");
+$friendarray = mysql_fetch_array($friendquery);
+$fcount = $friendarray['Count'];
+
+//get the total sum of ratings by friends of the user.
+
+$friendquery = mysql_query("SELECT SUM(rating) AS Sum FROM ( SELECT DISTINCT Fphoto.rating AS rating FROM Circle C, Friend F, (SELECT * FROM Rating R WHERE R.photoID = \"" . $photoID . "\") Fphoto WHERE F.circleID = C.circleID AND F.friendID = Fphoto.userID AND C.userID =  \"".$userID."\") Grouping");
+$friendarray = mysql_fetch_array($friendquery);
+$fsum = $friendarray['Sum'];
+
+$number = $ncount + 0.5*$fcount;
+$sum = ($nsum + 0.5*$fsum) / $ncount;
+$relevance = 0.2*$number + 0.8*$sum;  
+//echo "Average score: " . $avg['Average'];
+
+//relevance scoring is as follows: Non Friend rating = 100% of base, Friend rating = 150% of base. 
+//Relevance = 20% * Number of Ratings + 80% * Avg Rating
+// Number of Ratings = # non friend ratings + 1.5 * # friend ratings
+// Avg Rating = sum of non friend + friend ratings / # ratings
+echo "Average score for photo ".$photoID." is : " . $relevance;
 
 mysql_close($link);
 ?>
