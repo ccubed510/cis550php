@@ -15,7 +15,7 @@
 				<td style="text-align:right;"><input type="button" onclick="logout()" value="Logout" /></td>
 			<tr>
 				<td colspan="2">
-				<a href="photoviewer.php">View Photos</p></td>
+				<a href="ratephoto.php">View/Rate Photos</p></td>
 			<tr>
 				<td style="background-color:#39B7CD;width:50px;text-align:top;">
 					<h3>Profile:</h2>

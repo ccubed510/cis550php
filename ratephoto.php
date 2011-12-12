@@ -49,6 +49,7 @@
 				<br/>
 			</div>
 			<div class="content">
+				<a href="getuserinfo.php">Home</a>
 				<div id="info" ></div>
 				<form name="ratePhoto" action="">
 					<table>

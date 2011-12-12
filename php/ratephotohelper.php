@@ -17,7 +17,7 @@ $userID = $fetchArray['userID'];
 $rating = $_GET['rating'];
 $photoID = $_GET['photoID'];
 
-$permission = mysql_query("SELECT * FROM Visible V, Photo P WHERE P.photoID = V.photoID AND P.photoID = \"" . $photoID . "\" AND V.viewerID = \"" . $userID . "\"");
+$permission = mysql_query("SELECT * FROM Visible V, Photo P WHERE P.photoID = \"" . $photoID . "\" AND (P.photoID = V.photoID AND V.viewerID = \"" . $userID . "\") OR P.Visibility='public'");
 $rated = mysql_query("SELECT * FROM Rating WHERE Rating.photoID = \"" . $photoID . "\" AND Rating.userID = \"" . $userID . "\"");
 if (mysql_fetch_row($permission) != NULL) {
 	if (mysql_fetch_row($rated) != NULL) {
