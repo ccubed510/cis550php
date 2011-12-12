@@ -15,7 +15,7 @@ $fetchArray = mysql_fetch_array($fetchID);
 $userID = $fetchArray['userID'];
 
 
-$query = mysql_query("SELECT P.photoID, P.url FROM Photo P, Visible V WHERE P.photoID = V.photoID AND V.viewerID = \"".$userID."\"");
+$query = mysql_query("SELECT DISTINCT P.photoID, P.url FROM Photo P, Visible V WHERE (P.photoID = V.photoID AND V.viewerID = \"".$userID."\") OR P.Visibility='public'");
 
 echo "<tr>";
 while($row = mysql_fetch_array($query)){
