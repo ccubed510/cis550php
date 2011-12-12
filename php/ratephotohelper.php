@@ -23,11 +23,12 @@ if (mysql_fetch_row($permission) != NULL) {
 	if (mysql_fetch_row($rated) != NULL) {
 		echo "You have already rated this.";
 	} else {
-		$avgquery = mysql_query("SELECT AVG(R.rating) FROM Rating R WHERE R.photoID = \"" . $photoID . "\" GROUP BY photoID");
-		$avg = mysql_fetch_field($avgquery, 0);
+		$avgquery = mysql_query("SELECT AVG(R.rating) AS Average FROM Rating R WHERE R.photoID = \"" . $photoID . "\" GROUP BY photoID");
+		$avg = mysql_fetch_array($avgquery);
+		$a = $avg['Average'];
 		mysql_query("INSERT INTO Rating (photoID, rating, userID) VALUES (" . $photoID . ", " . $rating . ", " . $userID . ")");
 		echo "You rated this photo as a " . $rating . ".";
-		echo "Average score: " . $avg;
+		echo "Average score: " . $a;
 	}
 } else {
 	echo "You cannot rate this photo.";
