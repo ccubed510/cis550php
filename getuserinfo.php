@@ -21,7 +21,8 @@
 					<h3>Profile:</h2>
 					<? include ('php/userinfo.php'); ?>
 				</td>
-				<td style="background-color:#82CFFD;height:200px;width:500px;text-align:top;">Friend Updates Here!</td>
+				<td style="background-color:#82CFFD;height:200px;width:500px;text-align:top;">Friend Updates Here!<br>
+					<? include ('php/newsFeed.php'); ?></td>
 			</tr>
 			<tr>
 				<? include ('php/friendRec.php'); ?>

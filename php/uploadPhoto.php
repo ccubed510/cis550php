@@ -23,6 +23,9 @@
 	// If user choses public, simply adds photo to Photo table specifying photo as public.
 	if ($visibility == "public") {
 		mysql_query("INSERT INTO Photo (userID, url, visibility) VALUES ('".$userID."', '".$url."', 'public')");
+		$photo = mysql_query("SELECT photoID from Photo WHERE url = '".$url."'");
+		$row = mysql_fetch_array($photo);
+		mysql_query("INSERT INTO Post (userID, action, objectID, time) VALUES ('".$userID."', 'posted', '".$row['photoID']."',NOW())");
 		echo "Photo successfully uploaded.";
 	}
 	
@@ -73,6 +76,9 @@
 		
 		// Inserts the photo into the photo table.
 		mysql_query("INSERT INTO Photo (userID, url, visibility) VALUES ('".$userID."', '".$url."', 'restricted')");
+		$photo = mysql_query("SELECT photoID from Photo WHERE url = '".$url."'");
+		$row = mysql_fetch_array($photo);
+		mysql_query("INSERT INTO Post (userID, action, objectID, time) VALUES ('".$userID."', 'posted', '".$row['photoID']."',NOW())");
 
 		// Finds the newly inserted photo's photoID
 		$result = mysql_query("SELECT P.photoID FROM Photo P WHERE P.userID = '".$userID."' AND P.url = '".$url."'");

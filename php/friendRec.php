@@ -25,8 +25,9 @@
 	if (mysql_num_rows($mutual) == 0) {
 		//echo "Error: unable to get friend recommendations.";
 	} else {
+		$mutualWeight = 1;
 		while ($row = mysql_fetch_array($mutual)) {
-			$query = "INSERT INTO recs VALUES ('" .$row['userID']. "', '" .$row['count']. "')";
+			$query = "INSERT INTO recs VALUES ('" .$row['userID']. "', '" .($row['count']*$mutualWeight). "')";
 			$create = mysql_query($query);
 		}
 	}
@@ -34,19 +35,21 @@
 	//select ID's of users who have rated the same photos and insert into temp table
 	$query = "SELECT R3.userID AS friendID, COUNT(R3.userID) AS count FROM Rating R3, (SELECT DISTINCT R.userID AS UID2 FROM Rating R, (SELECT U.userID AS UID FROM User U WHERE U.userID NOT IN (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $userID . "')) potential WHERE R.userID = UID) prated, (SELECT DISTINCT R2.photoID AS PID FROM Rating R2 WHERE userID = '" . $userID . "') photos WHERE R3.userID = prated.UID2 AND R3.photoID = photos.PID AND R3.userID <> '" . $userID . "' GROUP BY R3.userID";
 	$samePhoto = mysql_query($query);
+	$photoWeight = 1;
 	while($row = mysql_fetch_array($samePhoto)){
 		$friendID = $row['friendID'];
 		$count = $row['count'];
-		$query = "INSERT INTO recs VALUES ('" .$friendID. "', '" .$count. "')";
+		$query = "INSERT INTO recs VALUES ('" .$friendID. "', '" .($count*$photoWeight). "')";
 		$create = mysql_query($query);
 	}
 	
 	//select ID's of users who attend the same school
 	$query = "SELECT A2.userID AS friendID, COUNT(A2.userID) AS count FROM Attended A2, (SELECT A.institutionName AS school FROM Attended A WHERE userID = '" . $userID . "') mySchools WHERE A2.institutionName = mySchools.school AND A2.userID NOT IN (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $userID . "') AND A2.userID <> '" . $userID . "' GROUP BY A2.userID";
 	$sameSchool = mysql_query($query);
+	$schoolWeight = 1;
 	while ($row = mysql_fetch_array($sameSchool)) {
 		//echo $row['friendID']. "', '" .$row['count'];
-		$query = "INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .$row['count']. "')";
+		$query = "INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .($row['count']*$schoolWeight). "')";
 		$create = mysql_query($query);
 	}
 	
