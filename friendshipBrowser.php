@@ -4,7 +4,6 @@
 		<script language="javascript" type="text/javascript" src="/Jit/jit.js"></script>
 		<!-- Friendship Visualization -->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-		<!--<script language="javascript" type="text/javascript" src="/js/friendshipVisualization.js"></script>-->
 		<script type="text/javascript">
 			function init(){
 				
@@ -16,7 +15,6 @@
 							alert("Unable to upload photo.");
 						}
 						else {
-							//alert(response);
 							var obj = jQuery.parseJSON(response);
 							getGraph(obj);
 						}
@@ -39,7 +37,6 @@
 					//canvas width and height
 					width: w,
 					height: h,
-					//Change node and edge styles such as color, width, and dimensions.
 					Node: {
 			          dim: 9,
 			          color: "#f00",
@@ -49,13 +46,9 @@
 			          lineWidth: 2,
 			          color: "#088"
 			      	},
-			      	 //Attach event handlers and add text to the
-			      //labels. This method is only triggered on label
-			      //creation
 			      onCreateLabel: function(domElement, node){
 			          domElement.innerHTML = node.name;
 			          $jit.util.addEvent(domElement, 'click', function () {
-			              //addToGraph(ht, node.id, node.name);
 			              ht.onClick(node.id, {
 			                  onComplete: function() {
 			                      ht.controller.onComplete();
@@ -63,8 +56,6 @@
 			              });
 			          });
 			      },
-			      //Change node styles when labels are placed
-			      //or moved.
 			      onPlaceLabel: function(domElement, node){
 			          var style = domElement.style;
 			          style.display = '';
@@ -86,10 +77,6 @@
 			          style.left = (left - w / 2) + 'px';
 			      },
 			       onComplete: function(){
-			         
-			          //Build the right column relations list.
-			          //This is done by collecting the information (stored in the data property) 
-			          //for all the nodes adjacent to the centered node.
 			          var node = ht.graph.getClosestNodeToOrigin("current");
 			          var html = "<h4>" + node.name + "</h4><b>Connections:</b>";
 			          html += "<ul>";
@@ -102,16 +89,19 @@
 			          html += "</ul>";
 			          $jit.id('inner-details').innerHTML = html;
 			          
-			          var html2 = "<h4>Photos:</h4>";
-			          html2 += "<table>";
 			          if (node.data.photos) {
+			          	var html2 = "<h4>Photos:</h4>";
+			          	html2 += "<table>";
 			          	var photos = node.data.photos;
 			          	for (var key in photos) {
-			          		html2 += "<tr><img src=\"" + photos[key].url + "\" alt=\"img\" /></tr>";
+			          		html2 += "<tr><td><img src=\"" + photos[key].url + "\" alt=\"img\" width=\"150\" /></td></tr>";
 			          	}
+			          	html2 += "</table>";
+			          	$jit.id('photos').innerHTML = html2;
 			          }
-			          html2 += "</table>";
-			          $jit.id('photos').innerHTML = html2;
+			          else {
+			          	$jit.id('photos').innerHTML = "";
+			          }
 			      }
 				})
 				//load JSON data.
@@ -121,27 +111,8 @@
 				//end
 				ht.controller.onComplete();
 			}
-			
-			/*function addToGraph(ht, userID, name) {
-				xmlhttp = new XMLHttpRequest();
-				xmlhttp.onreadystatechange = function() {
-					if(xmlhttp.readyState == 4) {
-						var response = xmlhttp.responseText;
-						if (response.trim() == 'error') {
-							alert("Unable to upload photo.");
-						}
-						else {
-							var content = jQuery.parseJSON(response);
-							ht.op.sum(content, { type: "fade:con", fps: 4, duration: 1000, hideLabels: true });
-						}
-					}
-				}
-				
-				xmlhttp.open("GET", "getNodeAndNeighbors.php?userID=" + userID + "&name=" + name, true);
-				xmlhttp.send();
-				
-			}*/
 		</script>
+		
 		<style type="text/css">
 			.graphColor {
 				color:"#000000";
