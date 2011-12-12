@@ -20,7 +20,10 @@
 	
 	echo "<table>";
 	while ($row = mysql_fetch_array($posts)) {
-		echo "<tr><td>User ".$row['friendID']." ".$row['action'] . " photo ".$row['objectID']." (".$row['time'].")</td></tr>";
+		$query = "SELECT first_name, last_name FROM User WHERE userID = '".$row['friendID']."'";
+		$temp = mysql_query($query);
+		$name = mysql_fetch_array($temp);
+		echo "<tr><td>".$name['first_name']." ".$name['last_name']." ".$row['action'] . " photo ".$row['objectID']." (".$row['time'].")</td></tr>";
 	}
 	echo "</table>";
 	

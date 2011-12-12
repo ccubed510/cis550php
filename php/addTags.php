@@ -26,6 +26,9 @@ foreach($tags as $tag){
 	else{
 		mysql_query("INSERT INTO PhotoTag (photoID, tag, tagger) VALUES ('".$photoID."', '".$tag."', '".$userID."')");
 		echo "The tag ".$tag." was successfully added. </br>";
+		$photo = mysql_query("SELECT photoID from Photo WHERE photoID = '".$photoID."'");
+		$row = mysql_fetch_array($photo);
+		mysql_query("INSERT INTO Post (userID, action, objectID, time) VALUES ('".$userID."', 'tagged', '".$row['photoID']."',NOW())");
 	}
 }
 ?>
