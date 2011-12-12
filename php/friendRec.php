@@ -41,6 +41,15 @@
 		$create = mysql_query($query);
 	}
 	
+	//select ID's of users who attend the same school
+	$query = "SELECT A2.userID AS friendID, COUNT(A2.userID) AS count FROM Attended A2, (SELECT A.institutionName AS school FROM Attended A WHERE userID = '" . $userID . "') mySchools WHERE A2.institutionName = mySchools.school AND A2.userID NOT IN (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $userID . "') AND A2.userID <> '" . $userID . "' GROUP BY A2.userID";
+	$sameSchool = mysql_query($query);
+	while ($row = mysql_fetch_array($sameSchool)) {
+		//echo $row['friendID']. "', '" .$row['count'];
+		$query = "INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .$row['count']. "')";
+		$create = mysql_query($query);
+	}
+	
 	//query temp table for top 3 potential friends
 	$query = "SELECT U.first_name AS first, U.last_name AS last FROM User U, (SELECT friendID, SUM(score) AS score FROM recs GROUP BY friendID ORDER BY score DESC LIMIT 3) T WHERE U.userID = friendID";
 	$test = mysql_query($query);
