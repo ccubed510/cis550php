@@ -20,9 +20,9 @@ $friendarray = explode(" ", $friends);
 $circles = $_GET['circles'];
 $circlearray = explode(" ", $circles);
 
-$query = "SELECT DISTINCT V.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE V.viewerID = '" . $userID . "' AND V.photoID = P.photoID";
-
-if (sizeof($friendarray) > 0) {
+$query = "SELECT DISTINCT V.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE ((P.photoID = V.photoID AND V.viewerID = \"".$userID."\") OR P.Visibility='public')";
+echo "hi";
+if (strlen($friends) > 0) {
 	$friend1 = $friendarray[0];
 	$query = $query . " AND (P.userID = '" . $friend1 . "' ";
 
@@ -33,7 +33,7 @@ if (sizeof($friendarray) > 0) {
 	}
 	$query = $query . ")";
 }
-if (sizeof($circlearray > 0)) {
+if (strlen($circles) > 0) {
 	$circle1 = $circlearray[0];
 	$query = $query . " AND (C.circleID = '" . $circle1 . "' ";
 
@@ -44,7 +44,7 @@ if (sizeof($circlearray > 0)) {
 	}
 	$query = $query . ")";
 }
-
+echo $query;
 $pquery = mysql_query($query);
 
 $searchArray[] = Array();
@@ -76,6 +76,7 @@ function getMatch(&$photoID, &$tag) {
 	$tagArray = Array();
 	$count = 0;
 	while ($a = mysql_fetch_array($getTags)) {
+		echo "hi this is a tag";
 		$t = $a['tag'];
 		$pTag = $t . str_split();
 		$tag = $tag . str_split();
