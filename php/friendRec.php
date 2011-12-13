@@ -42,7 +42,7 @@
 		mysql_query($query);
 		
 		//select ID's of users who have rated the same photos and insert into circleRecs table
-		$query = "SELECT fr.friendID AS friendID, COUNT(fr.friendID) AS count FROM Circle cir, Friend fr, (SELECT R3.userID AS friendID FROM Rating R3, (SELECT DISTINCT R.userID AS UID2 FROM Rating R, (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $theirID . "') potential WHERE R.userID = friend) prated, (SELECT DISTINCT R2.photoID AS PID FROM Rating R2 WHERE userID = '" . $theirID . "') photos WHERE R3.userID = prated.UID2 AND R3.photoID = photos.PID AND R3.userID <> '" . $theirID . "') samePhotos WHERE cir.userID = '".$userID."' AND cir.circleID = fr.circleID AND fr.friendID = samePhotos.friendID GROUP BY fr.friendID";
+		$query = "SELECT fr.friendID AS friendID, COUNT(fr.friendID) AS count FROM Circle cir, Friend fr, (SELECT R3.userID AS friendID FROM Rating R3, (SELECT DISTINCT R.userID AS UID2 FROM Rating R, User U WHERE R.userID = U.userID) prated, (SELECT DISTINCT R2.photoID AS PID FROM Rating R2 WHERE userID = '" . $theirID . "') photos WHERE R3.userID = prated.UID2 AND R3.photoID = photos.PID AND R3.userID <> '" . $theirID . "') samePhotos WHERE cir.userID = '".$userID."' AND cir.circleID = fr.circleID AND fr.friendID = samePhotos.friendID GROUP BY fr.friendID";
 		$samePhoto = mysql_query($query);
 		$photoWeight = 1;
 		while($row = mysql_fetch_array($samePhoto)){
@@ -60,7 +60,6 @@
 		}
 		
 		$query = "SELECT C.circleID AS circleID, SUM(friends.adjDiff) AS sum FROM Circle C, Friend F, (SELECT S.friendID AS friendID, (SUM(10-S.diff))/10 AS adjDiff FROM scoreDiffCircle S GROUP BY S.friendID) friends WHERE C.userID = '".$userID."' AND C.circleID = F.circleID AND F.friendID = friends.friendID GROUP BY C.circleID";
-		//$query = "SELECT friendID, diff AS adjDiff FROM scoreDiff";
 		$diff = mysql_query($query);
 		$diffWeight = 1;
 		while ($row = mysql_fetch_array($diff)){
@@ -76,7 +75,7 @@
 		}
 		
 		//select circleID's of users who attend the same school
-		$query = "SELECT C.circleID AS circleID, SUM(sameSchool.count) AS sum FROM Circle C, Friend F, (SELECT A2.userID AS friendID, COUNT(A2.userID) AS count FROM Attended A2, (SELECT A.institutionName AS school FROM Attended A WHERE userID = '" . $theirID . "') mySchools WHERE A2.institutionName = mySchools.school AND A2.userID IN (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $theirID . "') AND A2.userID <> '" . $theirID . "' GROUP BY A2.userID) sameSchool WHERE C.userID = '".$userID."' AND C.circleID = F.circleID AND F.friendID = sameSchool.friendID GROUP BY C.circleID";
+		$query = "SELECT C.circleID AS circleID, SUM(sameSchool.count) AS sum FROM Circle C, Friend F, (SELECT A2.userID AS friendID, COUNT(A2.userID) AS count FROM Attended A2, (SELECT A.institutionName AS school FROM Attended A WHERE userID = '" . $theirID . "') mySchools WHERE A2.institutionName = mySchools.school AND A2.userID <> '" . $theirID . "' GROUP BY A2.userID) sameSchool WHERE C.userID = '".$userID."' AND C.circleID = F.circleID AND F.friendID = sameSchool.friendID GROUP BY C.circleID";
 		$sameSchool = mysql_query($query);
 		$schoolWeight = 1;
 		while ($row = mysql_fetch_array($sameSchool)) {
@@ -90,6 +89,17 @@
 		$drop = mysql_query($query);
 		$query = "DROP TABLE scoreDiffCircle";
 		$drop = mysql_query($query);
+		
+		//select circleID's of users who have the same interests
+		$query = "SELECT C.circleID as circleID, SUM(friends.count) AS sum FROM Circle C, Friend F, (SELECT I1.userID AS friendID, COUNT(I1.userID) AS count FROM Interests I1, Interests I2 WHERE I2.userID = '".$theirID."' AND I1.interest = I2.interest AND I1.userID <> '" . $theirID . "' GROUP BY I1.userID) friends WHERE C.userID = '".$userID."' AND C.circleID = F.circleID AND F.friendID = friends.friendID GROUP BY C.circleID";
+		$interests = mysql_query($query);
+		$interestWeight = 1;
+		while ($row = mysql_fetch_array($interests)) {
+			//echo $row['circleID']. ", " .$row['sum']."<br>";
+			$query = "INSERT INTO circleRecs VALUES ('" .$row['circleID']. "', '" .($row['sum']*$interestWeight). "')";
+			mysql_query($query);
+		}
+		
 		//query circleRec table for top circle
 		$query = "SELECT circleID, SUM(score) AS score FROM circleRecs GROUP BY circleID ORDER BY score DESC LIMIT 1";
 		$test = mysql_query($query);
@@ -159,6 +169,16 @@
 		//	echo $row['friendID']. "', '" .$row['count'];
 		$query = "INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .($row['count']*$schoolWeight). "')";
 		$create = mysql_query($query);
+	}
+	
+	//select ID's of users who have the same interests
+	$query = "SELECT I1.userID AS friendID, COUNT(I1.userID) AS count FROM Interests I1, Interests I2 WHERE I2.userID = '".$userID."' AND I1.interest = I2.interest AND I1.userID <> '" . $userID . "' AND I1.userID NOT IN (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $userID . "') GROUP BY I1.userID";
+	$interests = mysql_query($query);
+	$interestWeight = 1;
+	while ($row = mysql_fetch_array($interests)) {
+		//echo $row['friendID']. ", " .$row['count']."<br>";
+		$query = "INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .($row['count']*$interestWeight). "')";
+		mysql_query($query);
 	}
 	
 	//query temp table for top 3 potential friends
