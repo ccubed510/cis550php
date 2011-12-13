@@ -133,15 +133,6 @@
 					    }
 						
 						mysql_select_db($db_name, $link);
-						$first = "";
-						$last = "";
-						if(empty($_GET)) {
-	    					//echo "<hr>";	
-						} else {
-							$first = $_GET['first'];
-							$last = $_GET['last'];
-							echo "<script type=\"text/javascript\">document.getElementById(\"firstName\").value='".$first."';document.getElementById(\"lastName\").value='".$last."';</script>";
-						}
 						
 						function getCircles() {
 							//Get userID of user.
@@ -155,7 +146,7 @@
 							$output = "";
 							for ($i=0; $i<mysql_num_rows($result); $i++) {
 								$row = mysql_fetch_array($result);
-								$output = $output."<input type='checkbox' class='indent' name='circleName' value='".$row['circleID']."' id='".$row['circleID']."' />".$row['name']."<br />";
+								$output = $output."<input type='checkbox' class='indent' name='circleName' value='".$row['circleID']."' id='".$row['circleID']."' />".$row['name']."<b id=\"R".$row['circleID']."\"></b><br />";
 							}
 							if ($output == "") {
 								return False;
@@ -167,6 +158,22 @@
 							echo "<label>Add to Existing Circle:<br /></label>";
 							echo $result;
 							echo "<br /><label class='indent'>OR</label><br /><br />";
+						}
+						
+						$first = "";
+						$last = "";
+						$circle = "";
+						if(empty($_GET)) {
+	    					//echo "<hr>";	
+						} else {
+							$first = $_GET['first'];
+							$last = $_GET['last'];
+							$circle = $_GET['circle'];
+							if($circle == -1){
+								echo "<script type=\"text/javascript\">document.getElementById(\"firstName\").value='".$first."';document.getElementById(\"lastName\").value='".$last."';</script>";
+							} else {
+								echo "<script type=\"text/javascript\">document.getElementById(\"firstName\").value='".$first."';document.getElementById(\"lastName\").value='".$last."';document.getElementById(\"R".$circle."\").innerHTML += ' (Recommended)';</script>";
+							}
 						}
 						mysql_close($link);
 						?>
