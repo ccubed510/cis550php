@@ -34,6 +34,8 @@
 							<td><a href="uploadPhoto.html">Upload a photo!</a></td>
 							<td><a href="addFriend.php">Add a new friend!</a></td>
 							<td><a href="addFriend.php">Add an existing friend to a new circle!</a></td>
+							<td><a href="addFriend.php">Create a new circle!</a></td>
+							<td><a href="friendshipBrowser.php">Friendship Browser!</a></td>
 						</tr>
 					</table>
 				</div>

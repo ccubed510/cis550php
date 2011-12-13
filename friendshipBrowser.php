@@ -111,6 +111,10 @@
 				//end
 				ht.controller.onComplete();
 			}
+			
+			function load(url) {
+				location.href = url;
+			}
 		</script>
 		
 		<style type="text/css">
@@ -177,6 +181,7 @@
 		</style>
 	</head>
 	<body onload="init();">
+		<input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" />
 		<div id="container">
 			<div id="left-container">
 				<div id="inner-details" class="indent"></div>
