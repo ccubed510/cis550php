@@ -36,6 +36,7 @@
 							<td><a href="addFriend.php">Add an existing friend to a new circle!</a></td>
 							<td><a href="addFriend.php">Create a new circle!</a></td>
 							<td><a href="friendshipBrowser.php">Friendship Browser!</a></td>
+							<td><a href="/php/exportFile.php">Export Data!</a></td>
 						</tr>
 					</table>
 				</div>
