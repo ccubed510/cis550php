@@ -16,7 +16,7 @@
 	$userID = $row['userID'];
 	
 	//create temporary table to store queries
-	$query = "CREATE TEMPORARY TABLE IF NOT EXISTS recs (friendID INT NOT NULL, score INT NOT NULL) ENGINE=MEMORY";
+	$query = "CREATE TEMPORARY TABLE IF NOT EXISTS recs (friendID INT NOT NULL, score FLOAT NOT NULL) ENGINE=MEMORY";
 	$create = mysql_query($query);
 	
 	//select ID's of mutual friends and insert into temp table
@@ -32,6 +32,10 @@
 		}
 	}
 	
+	//create temporary table to store rating differences
+	$query = "CREATE TEMPORARY TABLE IF NOT EXISTS scoreDiff (friendID INT NOT NULL, diff FLOAT NOT NULL) ENGINE=MEMORY";
+	mysql_query($query);
+	
 	//select ID's of users who have rated the same photos and insert into temp table
 	$query = "SELECT R3.userID AS friendID, COUNT(R3.userID) AS count FROM Rating R3, (SELECT DISTINCT R.userID AS UID2 FROM Rating R, (SELECT U.userID AS UID FROM User U WHERE U.userID NOT IN (SELECT DISTINCT F.friendID AS friend FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '" . $userID . "')) potential WHERE R.userID = UID) prated, (SELECT DISTINCT R2.photoID AS PID FROM Rating R2 WHERE userID = '" . $userID . "') photos WHERE R3.userID = prated.UID2 AND R3.photoID = photos.PID AND R3.userID <> '" . $userID . "' GROUP BY R3.userID";
 	$samePhoto = mysql_query($query);
@@ -39,8 +43,25 @@
 	while($row = mysql_fetch_array($samePhoto)){
 		$friendID = $row['friendID'];
 		$count = $row['count'];
+		//echo $friendID. ", " .$count;
 		$query = "INSERT INTO recs VALUES ('" .$friendID. "', '" .($count*$photoWeight). "')";
 		$create = mysql_query($query);
+		$query = "SELECT R1.userID AS friend, ABS(R1.rating - R2.rating) AS diff FROM Rating R1, Rating R2 WHERE R1.photoID = R2.photoID AND R1.userID = '".$friendID."' AND R2.userID = '".$userID."'";
+		$diff = mysql_query($query);
+		while($temp = mysql_fetch_array($diff)){
+			//echo $temp['friend']." ".$temp['diff']."<br>";
+			mysql_query("INSERT INTO scoreDiff VALUES ('".$temp['friend']."', '".$temp['diff']."')");
+		}
+	}
+	
+	$query = "SELECT S.friendID AS friendID, (SUM(10-S.diff))/10 AS adjDiff FROM scoreDiff S GROUP BY S.friendID";
+	//$query = "SELECT friendID, diff AS adjDiff FROM scoreDiff";
+	$diff = mysql_query($query);
+	
+	$diffWeight = 1;
+	while ($row = mysql_fetch_array($diff)){
+		//echo $row['friendID']. ", " .$row['adjDiff'];
+		mysql_query("INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .($row['adjDiff']*$diffWeight). "')");
 	}
 	
 	//select ID's of users who attend the same school
@@ -48,7 +69,7 @@
 	$sameSchool = mysql_query($query);
 	$schoolWeight = 1;
 	while ($row = mysql_fetch_array($sameSchool)) {
-		//echo $row['friendID']. "', '" .$row['count'];
+		//	echo $row['friendID']. "', '" .$row['count'];
 		$query = "INSERT INTO recs VALUES ('" .$row['friendID']. "', '" .($row['count']*$schoolWeight). "')";
 		$create = mysql_query($query);
 	}
@@ -68,6 +89,8 @@
 	}
 	
 	$query = "DROP TABLE recs";
+	$drop = mysql_query($query);
+	$query = "DROP TABLE scoreDiff";
 	$drop = mysql_query($query);
 	
 	mysql_close($link);
