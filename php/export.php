@@ -10,214 +10,230 @@
     }
 
     mysql_select_db($db_name, $link);
-	
-	$result;
     
     $user = mysql_query("SELECT * FROM User");
 	    			
-	  $result .= "<?xml version=\"1.0\" encoding=\"UTF-8\">\n";
-	  $result .= "<photodb xmlns=\"http://www.example.org/pennphoto\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.example.org/pennphoto CIS550Project.xsd\">
+	  echo "<?xml version=\"1.0\" encoding=\"UTF-8\">\n";
+	  echo "<photodb xmlns=\"http://www.example.org/pennphoto\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.example.org/pennphoto CIS550Project.xsd\">
 	  \n";
 	  while($row = mysql_fetch_array($user)) {
 	  	$temp= mysql_query("SELECT userName FROM Professor WHERE userName ='".$row['userName']."'");
 		  
 		if(mysql_fetch_array($temp)){
-			$result .= "<professor>\n";
-			$result .= "    <userID>".$row['userID']."</userID>\n";
-			$result .= "    <firstName>".$row['first_name']."</firstName>\n";
-			$result .= "    <lastName>".$row['last_name']."</lastName>\n";
-			$result .= "    <email>".$row['email']."</email>\n";
-			$result .= "    <birthdate>".$row['birth_date']."</birthdate>\n";
-			$result .= "    <address>".$row['address']."</address>\n";
-			$result .= "    <gender>".$row['gender']."</gender>\n";
-			$result .= "    <userName>".$row['userName']."</userName>\n";
-			$result .= "    <password>".$row['password']."</password>\n";
+			echo "<professor>\n";
+			echo "    <userID>".$row['userID']."</userID>\n";
+			echo "    <firstName>".$row['first_name']."</firstName>\n";
+			echo "    <lastName>".$row['last_name']."</lastName>\n";
+			echo "    <email>".$row['email']."</email>\n";
+			echo "    <birthdate>".$row['birth_date']."</birthdate>\n";
+			echo "    <address>".$row['address']."</address>\n";
+			echo "    <gender>".$row['gender']."</gender>\n";
+			echo "    <userName>".$row['userName']."</userName>\n";
+			echo "    <password>".$row['password']."</password>\n";
 			
-			$result .= "    <attended>";
-			if($inst=mysql_fetch_array(mysql_query("SELECT institutionName FROM Attended WHERE userID ='".$row['userID']."'"))){
-				$result .= $inst['institutionName'];
-			}$result .= "</attended>\n";	
+			echo "    <attended>";
+			if($inst=mysql_fetch_array(mysql_query("SELECT institutionName FROM Attended WHERE userID ='".$row['userID']."'"))){				
+				echo $inst['institutionName'];			
+			}	
+			
+			echo "</attended>\n";
+			
+			$interestQ =mysql_query("SELECT * FROM Interests WHERE userID ='".$row['userID']."'");
+			while($interest=mysql_fetch_array($interestQ)){
+				echo "    <interest>";
+				echo $interest['interest'];
+				echo "</interest>\n";
+			}
 			
 			
 			$photoQ =mysql_query("SELECT * FROM Photo WHERE userID ='".$row['userID']."'");
 			while($photo=mysql_fetch_array($photoQ)){
-				$result .= "    <photo>\n";
-					
-				$result .= "        <photoID>"; 
-				$result .= $photo['photoID'];
-				$result .= "</photoID>\n";
+				echo "    <photo>\n";				
+				echo "        <photoID>"; 
+				echo $photo['photoID'];
+				echo "</photoID>\n";
 				
-				$result .= "        <url>"; 
-				$result .= $photo['url'];
-				$result .= "</url>\n";
+				echo "        <url>"; 
+				echo $photo['url'];
+				echo "</url>\n";
 				
 				$ratingQ =mysql_query("SELECT * FROM Rating WHERE photoID ='".$photo['photoID']."'");
 				while($rating=mysql_fetch_array($ratingQ)){
-					$result .= "        <rating>\n";
-					$result .= "            <userID>"; 
-					$result .= $rating['userID'];
-					$result .= "</userID>\n";
+					echo "        <rating>\n";
+					echo "            <userID>"; 
+					echo $rating['userID'];
+					echo "</userID>\n";
 					
-					$result .= "            <score>"; 
-					$result .= $rating['rating'];
-					$result .= "</score>\n";
-					$result .= "        </rating>\n";
+					echo "            <score>"; 
+					echo $rating['rating'];
+					echo "</score>\n";
+					echo "        </rating>\n";
 				}
 				$tagQ =mysql_query("SELECT * FROM PhotoTag WHERE photoID ='".$photo['photoID']."'");
 				while($tag=mysql_fetch_array($tagQ)){
-					$result .= "        <tag>\n";
-					$result .= "            <tagger>"; 
-					$result .= $tag['tagger'];
-					$result .= "</tagger>\n";
+					echo "        <tag>\n";
+					echo "            <tagger>"; 
+					echo $tag['tagger'];
+					echo "</tagger>\n";
 					
-					$result .= "            <comment>"; 
-					$result .= $tag['tag'];
-					$result .= "</comment>\n";
-					$result .= "        </tag>\n";
+					echo "            <comment>"; 
+					echo $tag['tag'];
+					echo "</comment>\n";
+					echo "        </tag>\n";
 				}
 				
-				$result .= "        <visibility>\n";
+				echo "        <visibility>";
+				echo $photo['Visibility'];
+				echo "</visibility>\n";
+				echo "        <visibleTo>\n";
 				$visiQ =mysql_query("SELECT * FROM Visible WHERE photoID ='".$photo['photoID']."'");
 				while($visi=mysql_fetch_array($visiQ)){
 					
-					$result .= "            <userID>"; 
-					$result .= $visi['viewerID'];
-					$result .= "</userID>\n";
+					echo "            <userID>"; 
+					echo $visi['viewerID'];
+					echo "</userID>\n";
 					
 				}
-					$result .= "        </visibility>\n";			
-				$result .= "    </photo>\n";
+					echo "        </visibleTo>\n";			
+				echo "    </photo>\n";
 				
 				
 			}			
 			
 				$circleQ =mysql_query("SELECT * FROM Circle WHERE userID ='".$row['userID']."'");
 				while($circle=mysql_fetch_array($circleQ)){
-					$result .= "    <circle>\n";
-					$result .= "        <name>";
-					$result .= $circle['name'];
-					$result .= "</name>\n";
-					$result .= "        <circleID>";
-					$result .= $circle['circleID'];
-					$result .= "</circleID>\n";			
+					echo "    <circle>\n";
+					echo "        <name>";
+					echo $circle['name'];
+					echo "</name>\n";
+					echo "        <circleID>";
+					echo $circle['circleID'];
+					echo "</circleID>\n";			
 					$friendQ =mysql_query("SELECT * FROM Friend WHERE circleID ='".$circle['circleID']."'");
 					while($friend=mysql_fetch_array($friendQ)){
-						$result .= "        <containsFriend>";
-						$result .= $friend['friendID'];
-						$result .= "</containsFriend>\n";
+						echo "        <containsFriend>";
+						echo $friend['friendID'];
+						echo "</containsFriend>\n";
 					}
-					$result .= "    </circle>\n";
+					echo "    </circle>\n";
 				}
 				$adviseQ =mysql_query("SELECT * FROM Professor WHERE userName ='".$row['userName']."'");
 					while($advise=mysql_fetch_array($adviseQ)){
-						$result .= "    <advisee>";
-						$result .= $advise['advisee'];
-						$result .= "</advisee>\n";	
+						echo "    <advisee>";
+						echo $advise['advisee'];
+						echo "</advisee>\n";	
 					}
-			$result .= "</professor>\n";
+			echo "</professor>\n";
 		}
 		else{
-			$result .= "<student>\n";
-			$result .= "    <userID>".$row['userID']."</userID>\n";
-			$result .= "    <firstName>".$row['first_name']."</firstName>\n";
-			$result .= "    <lastName>".$row['last_name']."</lastName>\n";
-			$result .= "    <email>".$row['email']."</email>\n";
-			$result .= "    <birthdate>".$row['birth_date']."</birthdate>\n";
-			$result .= "    <address>".$row['address']."</address>\n";
-			$result .= "    <gender>".$row['gender']."</gender>\n";
-			$result .= "    <userName>".$row['userName']."</userName>\n";
-			$result .= "    <password>".$row['password']."</password>\n";
+			echo "<student>\n";
+			echo "    <userID>".$row['userID']."</userID>\n";
+			echo "    <firstName>".$row['first_name']."</firstName>\n";
+			echo "    <lastName>".$row['last_name']."</lastName>\n";
+			echo "    <email>".$row['email']."</email>\n";
+			echo "    <birthdate>".$row['birth_date']."</birthdate>\n";
+			echo "    <address>".$row['address']."</address>\n";
+			echo "    <gender>".$row['gender']."</gender>\n";
+			echo "    <userName>".$row['userName']."</userName>\n";
+			echo "    <password>".$row['password']."</password>\n";
 			
-			$result .= "    <attended>";
+			echo "    <attended>";
 			if($inst=mysql_fetch_array(mysql_query("SELECT institutionName FROM Attended WHERE userID ='".$row['userID']."'"))){
-				$result .= $inst['institutionName'];
-			}$result .= "</attended>\n";	
+				echo $inst['institutionName'];
+			}echo "</attended>\n";	
 			
+			$interestQ =mysql_query("SELECT * FROM Interests WHERE userID ='".$row['userID']."'");
+			while($interest=mysql_fetch_array($interestQ)){
+				echo "    <interest>";
+				echo $interest['interest'];
+				echo "</interest>\n";
+			}
 			
 			$photoQ =mysql_query("SELECT * FROM Photo WHERE userID ='".$row['userID']."'");
 			while($photo=mysql_fetch_array($photoQ)){
-				$result .= "    <photo>\n";
+				echo "    <photo>\n";
 					
-				$result .= "        <photoID>"; 
-				$result .= $photo['photoID'];
-				$result .= "</photoID>\n";
+				echo "        <photoID>"; 
+				echo $photo['photoID'];
+				echo "</photoID>\n";
 				
-				$result .= "        <url>"; 
-				$result .= $photo['url'];
-				$result .= "</url>\n";
+				echo "        <url>"; 
+				echo $photo['url'];
+				echo "</url>\n";
 				
 				$ratingQ =mysql_query("SELECT * FROM Rating WHERE photoID ='".$photo['photoID']."'");
 				while($rating=mysql_fetch_array($ratingQ)){
-					$result .= "        <rating>\n";
-					$result .= "            <userID>"; 
-					$result .= $rating['userID'];
-					$result .= "</userID>\n";
+					echo "        <rating>\n";
+					echo "            <userID>"; 
+					echo $rating['userID'];
+					echo "</userID>\n";
 					
-					$result .= "            <score>"; 
-					$result .= $rating['rating'];
-					$result .= "</score>\n";
-					$result .= "        </rating>\n";
+					echo "            <score>"; 
+					echo $rating['rating'];
+					echo "</score>\n";
+					echo "        </rating>\n";
 				}
 				$tagQ =mysql_query("SELECT * FROM PhotoTag WHERE photoID ='".$photo['photoID']."'");
 				while($tag=mysql_fetch_array($tagQ)){
-					$result .= "        <tag>\n";
-					$result .= "            <tagger>"; 
-					$result .= $tag['tagger'];
-					$result .= "</tagger>\n";
+					echo "        <tag>\n";
+					echo "            <tagger>"; 
+					echo $tag['tagger'];
+					echo "</tagger>\n";
 					
-					$result .= "            <comment>"; 
-					$result .= $tag['tag'];
-					$result .= "</comment>\n";
-					$result .= "        </tag>\n";
+					echo "            <comment>"; 
+					echo $tag['tag'];
+					echo "</comment>\n";
+					echo "        </tag>\n";
 				}
-				$result .= "        <visibility>\n";
+				
+				echo "        <visibility>";
+				echo $photo['Visibility'];
+				echo "</visibility>\n";
+					
+				echo "        <visibleTo>\n";
 				$visiQ =mysql_query("SELECT * FROM Visible WHERE photoID ='".$photo['photoID']."'");
 				while($visi=mysql_fetch_array($visiQ)){				
-					$result .= "            <userID>"; 
-					$result .= $visi['viewerID'];
-					$result .= "</userID>\n";			
+					echo "            <userID>"; 
+					echo $visi['viewerID'];
+					echo "</userID>\n";			
 				}
-					$result .= "        </visibility>\n";
-				$result .= "    </photo>\n";
+					echo "        </visibleTo>\n";
+					
+				echo "    </photo>\n";
 				
 				
 			}			
 			
 				$circleQ =mysql_query("SELECT * FROM Circle WHERE userID ='".$row['userID']."'");
 				while($circle=mysql_fetch_array($circleQ)){
-					$result .= "    <circle>\n";
-					$result .= "        <name>";
-					$result .= $circle['name'];
-					$result .= "</name>\n";
-					$result .= "        <circleID>";
-					$result .= $circle['circleID'];
-					$result .= "</circleID>\n";			
+					echo "    <circle>\n";
+					echo "        <name>";
+					echo $circle['name'];
+					echo "</name>\n";
+					echo "        <circleID>";
+					echo $circle['circleID'];
+					echo "</circleID>\n";			
 					$friendQ =mysql_query("SELECT * FROM Friend WHERE circleID ='".$circle['circleID']."'");
 					while($friend=mysql_fetch_array($friendQ)){
-						$result .= "        <containsFriend>";
-						$result .= $friend['friendID'];
-						$result .= "</containsFriend>\n";
+						echo "        <containsFriend>";
+						echo $friend['friendID'];
+						echo "</containsFriend>\n";
 					}
-					$result .= "    </circle>\n";
+					echo "    </circle>\n";
 				}
 				$adviseQ =mysql_query("SELECT * FROM Student WHERE userName ='".$row['userName']."'");
 					$advise=mysql_fetch_array($adviseQ);
-					$result .= "    <advisedBy>";
-					$result .= $advise['advisor'];
-					$result .= "</advisedBy>\n";	
+					echo "    <advisedBy>";
+					echo $advise['advisor'];
+					echo "</advisedBy>\n";	
 									
-			$result .= "</student>\n";
+			echo "</student>\n";
 		}
-      $result .=  $row['url'];
+      echo  $row['url'];
       }
-	  $result .= "</photodb>";
+	  echo "</photodb>";
 
- 	/*$file = "output.xml";
-	$handle = fopen($file, 'w');
-	fwrite($handle, $result);
-	fclose($handle);*/
-	
-	echo $result;
+ 
     
     mysql_close($link);
   ?>
