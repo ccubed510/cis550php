@@ -17,12 +17,12 @@ $userID = $fetchArray['userID'];
 
 $query = mysql_query("SELECT DISTINCT P.photoID, P.url FROM Photo P, Visible V WHERE (P.photoID = V.photoID AND V.viewerID = \"".$userID."\") OR P.Visibility='public'");
 
-echo "<tr>";
+//echo "<tr>";
 while($row = mysql_fetch_array($query)){
-	echo "<td><img src='".$row['url']."' height=50 onclick=\"selectPhoto(this)\" id = \"".$row['photoID']."\"/></td>";
+	echo "<div class='thumbnail'><img src='".$row['url']."' height=50 onclick=\"selectPhoto(this)\" id = \"".$row['photoID']."\"/></div>";
 }
-echo "</tr>";
-echo "<tr>";
+//echo "</tr>";
+//echo "<tr>";
 
 
 ?>

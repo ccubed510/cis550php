@@ -10,11 +10,13 @@
 				var bdate = document.getElementById("birthdate").value;
 				var gender = document.getElementById("gender").value;
 				var address = document.getElementById("address").value;
+				var institution = document.getElementById("institution").value;
 				var roleindex = document.getElementById("roles").selectedIndex;
-				if(user.length == 0 || pwd.length == 0 || fname.length == 0 || lname.length == 0 || email.length == 0 || bdate.length == 0 || gender.length == 0 || address.length == 0) {
+				if(user.length == 0 || pwd.length == 0 || fname.length == 0 || lname.length == 0 || email.length == 0 || bdate.length == 0 || gender.length == 0 || address.length == 0 || institution.length == 0) {
 					alert("You are missing something.");
 					return;
 				}
+				
 				xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
 					if(xmlhttp.readyState == 4) {
@@ -31,7 +33,7 @@
 					break;
 				}
 				var query = "userName=" + user + "&password=" + pwd + "&firstName=" + fname + "&lastName=" + lname + 
-				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address + rolesubmit;    
+				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address + "&institution=" + institution + rolesubmit;    
 				xmlhttp.open("GET", "/php/createUser.php?" + query, true);
 				xmlhttp.send(null);
 			}
@@ -40,8 +42,7 @@
 				var role = document.getElementById("roles");
 				var student = "<td><label> Advised By: </label></td>" +
 						"<td><input type=\"text\" id=\"advisedBy\"/></td>";
-				var professor = "<td><label> Advises: </label></td>" +
-						"<td><input type=\"text\" id=\"advises\"/></td>";
+				var professor = "<td><label> Advises1: </label></td> <td><input type=\"text\" id=\"advises1\"/></td>";
 				switch(role.selectedIndex){
 					case 0: document.getElementById("roleinfo").innerHTML = "";
 					break;
@@ -85,6 +86,10 @@
 						<td><input type="text" id="birthdate"/></td>
 					</tr>
 					<tr>
+						<td><label> Institution Attended: </label></td>
+						<td><input type="text" id="institution"/></td>
+					</tr>
+					<tr>
 						<td><label> Gender: </label></td>
 						<td><input type="text" id="gender"/></td>
 					</tr>
@@ -104,7 +109,7 @@
 					
 					
 					
-					<input type="button" onclick="formsubmit()" value="Create User" />
+					<tr><input type="button" onclick="formsubmit()" value="Create User" /></tr>
 					<tr><td><div id="user"></div></td></tr>
 				</table>
 			</form>

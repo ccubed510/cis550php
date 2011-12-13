@@ -14,10 +14,10 @@
 			<div class="content">
 				<a href="getuserinfo.php">Home</a>
 				<div id="info" ></div>
-				<table class="centered">
+				<div id="gallery">
 					<?php include('php/ratephotoselect.php')
 					?>
-				</table>
+				</div>
 				
 				<table width="600px" align="left" id="extra" class="hidden">
 					<tr>

@@ -72,3 +72,14 @@ table.friends {
 .hidden{
 	visibility: hidden;
 }
+
+.thumbnail {
+ float: left;
+  width: 50px;
+  padding: 10px;	
+}
+
+.gallery {
+border: 2px dashed #333;
+  background-color: #fff;	
+}

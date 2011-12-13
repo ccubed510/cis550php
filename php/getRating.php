@@ -40,17 +40,24 @@ $fcount = $friendarray['Count'];
 $friendquery = mysql_query("SELECT SUM(rating) AS Sum FROM ( SELECT DISTINCT Fphoto.rating AS rating FROM Circle C, Friend F, (SELECT * FROM Rating R WHERE R.photoID = \"" . $photoID . "\") Fphoto WHERE F.circleID = C.circleID AND F.friendID = Fphoto.userID AND C.userID =  \"".$userID."\") Grouping");
 $friendarray = mysql_fetch_array($friendquery);
 $fsum = $friendarray['Sum'];
-
+if($ncount != 0){
 $number = $ncount + 0.5*$fcount;
 $sum = ($nsum + 0.5*$fsum) / $ncount;
-$relevance = 0.2*$number + 0.8*$sum;  
+$relevance = 0.2*$number + 0.8*$sum; 
+$r = number_format($relevance, 2);
+echo "Average score for photo ".$photoID." is : " . $r;
+ 
+}
+else {
+echo "Photo ".$photoID." is not yet rated.";
+}
+
 //echo "Average score: " . $avg['Average'];
 
 //relevance scoring is as follows: Non Friend rating = 100% of base, Friend rating = 150% of base. 
 //Relevance = 20% * Number of Ratings + 80% * Avg Rating
 // Number of Ratings = # non friend ratings + 1.5 * # friend ratings
 // Avg Rating = sum of non friend + friend ratings / # ratings
-echo "Average score for photo ".$photoID." is : " . $relevance;
 
 mysql_close($link);
 ?>
