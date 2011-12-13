@@ -97,7 +97,7 @@
 					</form>
 				</div>
 				<div class="centered">
-					<table id = "results"></table>
+					<div class="gallery" id = "results"></table>
 					<div class="photoInfo" id="mainPhotoInfo"></div>
 				</div>
 			</div>

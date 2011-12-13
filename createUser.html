@@ -11,8 +11,9 @@
 				var gender = document.getElementById("gender").value;
 				var address = document.getElementById("address").value;
 				var institution = document.getElementById("institution").value;
+				var interests = document.getElementById("interests").value;
 				var roleindex = document.getElementById("roles").selectedIndex;
-				if(user.length == 0 || pwd.length == 0 || fname.length == 0 || lname.length == 0 || email.length == 0 || bdate.length == 0 || gender.length == 0 || address.length == 0 || institution.length == 0) {
+				if(user.length == 0 || pwd.length == 0 || fname.length == 0 || lname.length == 0 || email.length == 0 || bdate.length == 0 || gender.length == 0 || address.length == 0 || institution.length == 0 || interests.length ==0) {
 					alert("You are missing something.");
 					return;
 				}
@@ -33,7 +34,7 @@
 					break;
 				}
 				var query = "userName=" + user + "&password=" + pwd + "&firstName=" + fname + "&lastName=" + lname + 
-				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address + "&institution=" + institution + rolesubmit;    
+				"&email=" + email + "&birthDate=" + bdate + "&gender=" + gender + "&address=" + address + "&institution=" + institution + "&interests=" + interests + rolesubmit;    
 				xmlhttp.open("GET", "/php/createUser.php?" + query, true);
 				xmlhttp.send(null);
 			}
@@ -96,6 +97,10 @@
 					<tr>
 						<td><label> Address: </label></td>
 						<td><input type="text" id="address"/></td>
+					</tr>
+					<tr>
+						<td><label> Interests: </label></td>
+						<td><input type="text" id="interests"/></td>
 					</tr>
 					<tr> <td><label> Student or Professor: </label>
 						<select id="roles" onchange="javascript:selectRole();">

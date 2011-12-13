@@ -20,6 +20,8 @@ $email = $_GET["email"];
 $address = $_GET["address"];
 $advisedBy = $_GET["advisedBy"];
 $institution = $_GET["institution"];
+$interesta = $_GET["interests"];
+$interests = explode(",", $interesta);
 
 $check = mysql_query("SELECT * FROM User WHERE User.userName = '" . $user . "'");
 $rowcheck = mysql_fetch_row($check);
@@ -38,6 +40,9 @@ if ($rowcheck != NULL) {
 			$uarr = mysql_fetch_array($uquery);
 			$userID = $uarr['userID'];
 			mysql_query("INSERT INTO Attended (userID, institutionName) VALUES ('" . $userID . "', '" . $institution . "')");
+			foreach ($interests as $int) {
+				mysql_query("INSERT INTO Interests (userID, interest) VALUES ('" . $userID . "', '" . $int . "')");
+			}
 			echo "Success, added " . $user . " to the database. Please return to <a href='home.html'> home to login </a>";
 
 		} else {
@@ -50,6 +55,9 @@ if ($rowcheck != NULL) {
 		$uarr = mysql_fetch_array($uquery);
 		$userID = $uarr['userID'];
 		mysql_query("INSERT INTO Attended (userID, institutionName) VALUES ('" . $userID . "', '" . $institution . "')");
+		foreach ($interests as $int) {
+			mysql_query("INSERT INTO Interests (userID, interest) VALUES ('" . $userID . "', '" . $int . "')");
+		}
 		echo "Success, added " . $user . " to the database. Please return to <a href='home.html'> home to login </a>";
 
 	}

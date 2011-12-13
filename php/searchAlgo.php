@@ -20,8 +20,7 @@ $friendarray = explode(" ", $friends);
 $circles = $_GET['circles'];
 $circlearray = explode(" ", $circles);
 
-$query = "SELECT DISTINCT V.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE ((P.photoID = V.photoID AND V.viewerID = \"".$userID."\") OR P.Visibility='public')";
-echo "hi";
+$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE ((P.photoID = V.photoID AND V.viewerID = \"".$userID."\") OR P.Visibility='public')";
 if (strlen($friends) > 0) {
 	$friend1 = $friendarray[0];
 	$query = $query . " AND (P.userID = '" . $friend1 . "' ";
@@ -44,7 +43,6 @@ if (strlen($circles) > 0) {
 	}
 	$query = $query . ")";
 }
-echo $query;
 $pquery = mysql_query($query);
 
 $searchArray[] = Array();
@@ -53,7 +51,11 @@ while ($p = mysql_fetch_array($pquery)) {
 	$pID = $p['photoID'];
 	$tagHits = 0;
 	foreach ($tagarray as $tag) {
-		$tagHits += getMatch($pID, $tag);
+		$a = strtolower($tag);
+		$sc = getMatch($pID, $a);
+		if($sc > 0){
+		$tagHits += $sc;
+		}
 	}
 	$searchArray[$pID] = $tagHits;
 }
@@ -63,7 +65,9 @@ foreach ($searchArray as $photo => $score) {
 		$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
 		$p = mysql_fetch_array($pquery);
 		$url = $p['url'];
-		echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
+		if($score > -4){
+			echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
+		}
 	}
 }
 
@@ -76,21 +80,23 @@ function getMatch(&$photoID, &$tag) {
 	$tagArray = Array();
 	$count = 0;
 	while ($a = mysql_fetch_array($getTags)) {
-		echo "hi this is a tag";
-		$t = $a['tag'];
-		$pTag = $t . str_split();
-		$tag = $tag . str_split();
+		$t = strtolower($a['tag']);
+		if(strlen($t) > 0 && strlen($t) < 10){
+		$aTag = str_split($tag, 1);
+		$pTag = str_split($t, 1);
 		$p1 = strlen($tag) - 1;
-		$p2 = strlen($pTag) - 1;
-		$tagArray[$count] = opt($tag, $pTag, $p1, $p2);
+		$p2 = strlen($t) - 1;
+		$tagArray[$count] = opt($aTag, $pTag, $p1, $p2);
 		$count++;
+		}
 	}
 	return max($tagArray);
 }
 
 //takes as a parameter two tags with positions p1 and p2
 function opt($tag1, $tag2, $p1, $p2) {
-	//echo "sr" . $p1. "sr".$p2."</br>";
+//	echo "sr" . $p1. "sr".$p2."</br>";
+
 	$c1 = $tag1[$p1];
 	$c2 = $tag2[$p2];
 	$p3 = max($p1 - 1, 0);
@@ -109,11 +115,14 @@ function opt($tag1, $tag2, $p1, $p2) {
 	$v3 = opt($tag1, $tag2, $p1, $p4) - 1;
 	$max = max($v1, $v2, $v3);
 	return $max;
+	//return 0;
 }
 
 function matchCost(&$char1, &$char2) {
-	if ($char1 == $char2) {
+	if(($char1 != NULL) && ($char2 != NULL)){
+	if (strcmp($char1,$char2) == 0) {
 		return 1;
+	}
 	}
 	return -1;
 }
