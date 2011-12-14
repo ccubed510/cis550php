@@ -62,33 +62,71 @@
 		</script>
 		
 		<style type="text/css">
+			#container {
+			    width: 1000px;
+			    margin:0 auto;
+			    position:relative;
+			}
+			
+			.header {
+				background: #6F7D94;
+				padding: 0 10px 0 10px;
+				height: 60px;
+			}
+			
 			.indent {
 				margin-left: 2em;
 			}
+			
 			.indent2 {
 				margin-left: 4em;
+			}
+			
+			.indent3 {
+				margin-left: 3em;
+			}
+			
+			h1 {
+				font-size: 24pt;
+				color: #ffffff;
 			}
 		</style>
 	</head>
 	<body>
-		<h3>Upload a Photo:</h3>
-		<div id="uploadForm">
-			<form name="upload">
-				<fieldset>
-					<br />
-					URL:<input type="text" id="url" size="101" /><br />
-					<br />
-					Visibility: <br />
-					<input class="indent" type="radio" name="visibility" id="pub" onclick="radioChecker()" checked /> Public<br />
-					<input class="indent" type="radio" name="visibility" id="users" onclick="radioChecker();" /> Limit to users (specify by "firstname lastname" with semicolons between friends):<br />
-					<input class="indent2" type="text" name="userList" id="userList" disabled="true" size="100" /> <br />
-					<input class="indent" type="radio" name="visibility" id="circles" onclick="radioChecker();" /> Limit to circles (specify by "circle name" with semicolons between circles): <br />
-					<input class="indent2" type="text" name="circleList" id="circleList" disabled="true" size="100" /> </br />
-					<br />
-					<input type="button" onclick="formsubmit()" value="Upload" />
-				</fieldset>
-			</form>
-		</div>
-		<input type="button" onclick="load('getuserinfo.php')" value="Cancel" />
+		<table id="container">
+			<tr>
+				<td class="header">
+					<table width="100%">
+						<tr>
+							<td><h1>Upload a Photo:</h1></td>
+							<td align="right"><input type="button" onclick="load('getuserinfo.php')" value="Cancel" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="uploadForm">
+						<form name="upload">
+							<fieldset>
+								<br />
+								URL:<input type="text" id="url" size="101" /><br />
+								<br />
+								Visibility: <br />
+								<input class="indent" type="radio" name="visibility" id="pub" onclick="radioChecker()" checked /> Public<br />
+								<input class="indent" type="radio" name="visibility" id="users" onclick="radioChecker();" /> Limit to users (specify by "firstname lastname" with semicolons between friends):<br />
+								<label class="indent3"><i>E.g. John Doe;Zack Ives;Barack Obama</i></label><br />
+								<input class="indent2" type="text" name="userList" id="userList" disabled="true" size="100" /> <br />
+								<input class="indent" type="radio" name="visibility" id="circles" onclick="radioChecker();" /> Limit to circles (specify by "circle name" with semicolons between circles): <br />
+								<label class="indent3"><i>E.g. Friends;Co-workers:Family</i></label><br />
+								<input class="indent2" type="text" name="circleList" id="circleList" disabled="true" size="100" /> </br />
+								<br />
+								<input type="button" onclick="formsubmit()" value="Upload" />
+							</fieldset>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table>
 	</body>
 </html>

@@ -68,14 +68,14 @@
 					</table>
 				</td>
 			<tr>
-				<td colspan="2">Top Photos Here!</td>
+				<td width="100%" colspan="2" align="center"><? include ('php/getTopPhotos.php'); ?></td>
 			</tr>
 			<tr>
 				<td class="profile" id="profile">
 					<h3>Profile:</h3>
 					<? include ('php/userinfo.php'); ?>
 				</td>
-				<td class="feed" id="feed"><h3>Friend Updates Here!</h3>
+				<td class="feed" id="feed"><h3>News Feed:</h3>
 					<? include ('php/newsFeed.php'); ?></td>
 			</tr>
 			<tr>

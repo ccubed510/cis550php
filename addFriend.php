@@ -86,10 +86,6 @@
 			}
 		</script>
 		<style type="text/css">
-			.indent {
-				margin-left: 2em;
-			}
-			
 			#container {
 			    width: 1000px;
 			    margin:0 auto;
@@ -107,12 +103,42 @@
 				text-align:right;
 			}
 			
+			.header {
+				background: #6F7D94;
+				padding: 0 10px 0 10px;
+				height: 60px;
+			}
+			
+			.panel {
+				background: #EDEDED;
+			}
+			
+			.indent {
+				margin-left: 2em;
+			}
+			
+			
+			h1 {
+				font-size: 24pt;
+				color: #ffffff;
+			}
+			
 		</style>
 	</head>
 	<body>
-		<table id="container" border="1px">
+		<table id="container">
+			<tr class="header">
+				<td colspan="2">
+					<table width="100%">
+						<tr>
+							<td><h1>Add Friends and Circles</h1></td>
+							<td align="right"><input type="button" onclick="load('getuserinfo.php')" value="Cancel" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
 			<tr>
-				<td id="addForm" width="50%">
+				<td id="addForm" class="panel" width="50%">
 					<form name="addForm">
 						<h4>Add a New Friend or Add an Existing Friend to a New Circle:</h4>
 						<br />
@@ -184,7 +210,7 @@
 					</form>
 				
 				</td>
-				<td id="addCircle">
+				<td id="addCircle" class="panel">
 					<form name="addCircle">
 						<h4>Create a New Circle:</h4>
 						<br />
@@ -242,11 +268,6 @@
 						<br />
 						<input type="button" onclick="formsubmit2()" value="Add" />
 					</form>
-				</td>
-			</tr>
-			<tr>
-				<td id="cancel" colspan="2">
-					<input type="button" onclick="load('getuserinfo.php')" value="Cancel" />
 				</td>
 			</tr>
 		</table>

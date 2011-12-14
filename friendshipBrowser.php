@@ -126,6 +126,23 @@
 				margin-left: 1em;
 			}
 			
+			.header {
+				background: #6F7D94;
+				padding: 0 10px 0 10px;
+				height: 60px;
+			}
+			
+			h1 {
+				font-size: 24pt;
+				color: #ffffff;
+			}
+			
+			#outer-container {
+			    width: 1000px;
+			    margin:0 auto;
+			    position:relative;
+			}
+			
 			#container {
 			    width: 1000px;
 			    height: 600px;
@@ -181,17 +198,32 @@
 		</style>
 	</head>
 	<body onload="init();">
-		<input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" />
-		<div id="container">
-			<div id="left-container">
-				<div id="inner-details" class="indent"></div>
-			</div>
-			<div id="center-container">
-				<div id="infovis"></div>
-			</div>
-			<div id="right-container">
-				<div id="photos" class="indent"></div>
-			</div>
-		</div>
+		<table id="outer-container">
+			<tr>
+				<td class="header" colspan="2">
+					<table width="100%">
+						<tr>
+							<td><h1>Friendship Browser</h1></td>
+							<td align="right"><input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div id="container">
+					<div id="left-container">
+						<div id="inner-details" class="indent"></div>
+					</div>
+					<div id="center-container">
+						<div id="infovis"></div>
+					</div>
+					<div id="right-container">
+						<div id="photos" class="indent"></div>
+					</div>
+				</div>
+				</td>
+			</tr>
+		</table>
 	</body>
 </html>
