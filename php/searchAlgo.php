@@ -20,25 +20,25 @@ $friendarray = explode(" ", $friends);
 $circles = $_GET['circles'];
 $circlearray = explode(" ", $circles);
 
-$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE ((P.photoID = V.photoID AND V.viewerID = \"".$userID."\") OR P.Visibility='public')";
+$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE ((P.photoID = V.photoID AND V.viewerID = \"" . $userID . "\") OR P.Visibility='public')";
 if (strlen($friends) > 0) {
 	$friend1 = $friendarray[0];
-	$query = $query . " AND (P.userID = '" . $friend1 . "' ";
+	$query = $query . " AND (P.userID = '" . $friend1 . "'";
 
 	foreach ($friendarray as $friend) {
 		if ($friend != $friend1) {
-			$query = $query. " OR P.userID = '" . $friend."'";
+			$query = $query . " OR P.userID = '" . $friend . "'";
 		}
 	}
 	$query = $query . ")";
 }
 if (strlen($circles) > 0) {
 	$circle1 = $circlearray[0];
-	$query = $query . " AND (C.circleID = '" . $circle1 . "' ";
+	$query = $query . " AND (C.circleID = '" . $circle1 . "'";
 
 	foreach ($circlearray as $circle) {
 		if ($circle != $circle1) {
-			$query = $query. " OR C.circleID = '" . $circle."'";
+			$query = $query . " OR C.circleID = '" . $circle . "'";
 		}
 	}
 	$query = $query . ")";
@@ -53,22 +53,26 @@ while ($p = mysql_fetch_array($pquery)) {
 	foreach ($tagarray as $tag) {
 		$a = strtolower($tag);
 		$sc = getMatch($pID, $a);
-		if($sc > 0){
-		$tagHits += $sc;
+		if ($sc > 0) {
+			$tagHits += $sc;
 		}
 	}
 	$searchArray[$pID] = $tagHits;
 }
 arsort($searchArray);
-foreach ($searchArray as $photo => $score) {
-	if ($photo != null) {
-		$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
-		$p = mysql_fetch_array($pquery);
-		$url = $p['url'];
-		if($score > -4){
-			echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
+if (sizeof($searchArray > 0)) {
+	foreach ($searchArray as $photo => $score) {
+		if ($photo != null) {
+			$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
+			$p = mysql_fetch_array($pquery);
+			$url = $p['url'];
+			if ($score > -4) {
+				echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
+			}
 		}
 	}
+} else {
+	echo "Images not found. Please try again.";
 }
 
 //Dynamic Programming Algorithm to get Ranking for Partial String Matching
@@ -81,26 +85,25 @@ function getMatch(&$photoID, &$tag) {
 	$count = 0;
 	while ($a = mysql_fetch_array($getTags)) {
 		$t = strtolower($a['tag']);
-		if(strlen($t) > 0 && strlen($t) < 10){
-		$aTag = str_split($tag, 1);
-		$pTag = str_split($t, 1);
-		$p1 = strlen($tag) - 1;
-		$p2 = strlen($t) - 1;
-		$tagArray[$count] = opt($aTag, $pTag, $p1, $p2);
-		$count++;
+		if (strlen($t) > 0 && strlen($t) < 10) {
+			$aTag = str_split($tag, 1);
+			$pTag = str_split($t, 1);
+			$p1 = strlen($tag) - 1;
+			$p2 = strlen($t) - 1;
+			$tagArray[$count] = opt($aTag, $pTag, $p1, $p2);
+			$count++;
 		}
 	}
-	if(sizeof($tagArray) > 0){
+	if (sizeof($tagArray) > 0) {
 		return max($tagArray);
-	}
-	else {
+	} else {
 		return 0;
 	}
 }
 
 //takes as a parameter two tags with positions p1 and p2
 function opt($tag1, $tag2, $p1, $p2) {
-//	echo "sr" . $p1. "sr".$p2."</br>";
+	//	echo "sr" . $p1. "sr".$p2."</br>";
 
 	$c1 = $tag1[$p1];
 	$c2 = $tag2[$p2];
@@ -124,10 +127,10 @@ function opt($tag1, $tag2, $p1, $p2) {
 }
 
 function matchCost(&$char1, &$char2) {
-	if(($char1 != NULL) && ($char2 != NULL)){
-	if (strcmp($char1,$char2) == 0) {
-		return 1;
-	}
+	if (($char1 != NULL) && ($char2 != NULL)) {
+		if (strcmp($char1, $char2) == 0) {
+			return 1;
+		}
 	}
 	return -1;
 }
