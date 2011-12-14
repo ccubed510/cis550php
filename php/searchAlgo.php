@@ -47,32 +47,50 @@ $pquery = mysql_query($query);
 
 $searchArray[] = Array();
 
-while ($p = mysql_fetch_array($pquery)) {
-	$pID = $p['photoID'];
-	$tagHits = 0;
-	foreach ($tagarray as $tag) {
-		$a = strtolower($tag);
-		$sc = getMatch($pID, $a);
-		if ($sc > 0) {
-			$tagHits += $sc;
+//search by tag
+if (strlen($tags) > 0) {
+	while ($p = mysql_fetch_array($pquery)) {
+		$pID = $p['photoID'];
+		$tagHits = 0;
+		foreach ($tagarray as $tag) {
+			$a = strtolower($tag);
+			$sc = getMatch($pID, $a);
+			if ($sc > 0) {
+				$tagHits += $sc;
+			}
 		}
+		$searchArray[$pID] = $tagHits;
 	}
-	$searchArray[$pID] = $tagHits;
-}
-arsort($searchArray);
-if (sizeof($searchArray > 0)) {
-	foreach ($searchArray as $photo => $score) {
-		if ($photo != null) {
+	arsort($searchArray);
+	if (sizeof($searchArray > 0)) {
+		foreach ($searchArray as $photo => $score) {
+			if ($photo != null) {
+				$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
+				$p = mysql_fetch_array($pquery);
+				$url = $p['url'];
+				if ($score > -4) {
+					echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
+				}
+			}
+		}
+	} else {
+		echo "Images not found. Please try again.";
+	}
+} else {
+	//search by user/circle
+	$pquery = mysql_query($query);
+	if (sizeof($pquery > 0)) {
+		while ($p = mysql_fetch_array($pquery)) {
 			$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
 			$p = mysql_fetch_array($pquery);
 			$url = $p['url'];
-			if ($score > -4) {
-				echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
-			}
+			$pID = $p['photoID'];
+			echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
 		}
+	} else {
+		echo "Images not found. Please try again.";
 	}
-} else {
-	echo "Images not found. Please try again.";
+
 }
 
 //Dynamic Programming Algorithm to get Ranking for Partial String Matching
