@@ -55,7 +55,7 @@
 			$row2 = mysql_fetch_array($advisee);
 			$grandchild['id'] = $row2['userID'];
 			$grandchild['name'] = getName($row2);
-			$data = array("\$color" => "#7F00FF", "\$type" => "square");
+			$data = array("\$type" => "square");
 			$grandchild['data'] = $data;
 			array_push($grandchildren, $grandchild);
 		}
@@ -116,7 +116,7 @@
 		
 		//Add friend of friends.
 		$grandchildren = array();
-		$friendsOfFriends = mysql_query("SELECT DISTINCT F.friendID FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '".$friendID."' AND F.friendID <> '".$userID."' AND F.friendID NOT IN (SELECT DISTINCT F.friendID FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '".$userID."')");
+		$friendsOfFriends = mysql_query("SELECT DISTINCT F.friendID FROM Friend F, Circle C WHERE F.circleID = C.circleID AND C.userID = '".$friendID."' AND F.friendID <> '".$userID."'");
 		for ($k = 0; $k < mysql_num_rows($friendsOfFriends); $k++) {
 			$grandchild = array();
 			$row = mysql_fetch_array($friendsOfFriends);
@@ -125,8 +125,6 @@
 			$fofName = getName(mysql_fetch_array($fof));
 			$grandchild['id'] = $fofID;
 			$grandchild['name'] = $fofName;
-			$data = array("\$color" =>"#7F00FF");
-			$grandchild['data'] = $data;
 			array_push($grandchildren, $grandchild);
 		}
 		$child['children'] = $grandchildren;

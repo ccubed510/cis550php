@@ -15,6 +15,10 @@ p.optionsToggle {
 	color: #FFFFFF;
 }
 
+p.optionsToggle:hover {
+	cursor: pointer;
+}
+
 div.optionsPanel {
 	display: none;
 	background: #EDEDED;

@@ -21,7 +21,13 @@
 				xmlhttp = new XMLHttpRequest();
 				xmlhttp.onreadystatechange = function() {
 					if(xmlhttp.readyState == 4) {
- 						document.getElementById("user").innerHTML = xmlhttp.responseText;
+ 						//document.getElementById("user").innerHTML = xmlhttp.responseText;
+ 						var response = xmlhttp.responseText;
+ 						alert(response);
+ 						if(response.trim().substring(0,7) == "Success"){
+ 							load('home.html');
+ 						}
+ 						
 					}
 				}
 				var rolesubmit = "";
@@ -92,7 +98,7 @@
 					<table width="100%">
 						<tr>
 							<td><h1>Create a New Account</h1></td>
-							<td align="right"><input type="button" onclick="load('getuserinfo.php')" value="Cancel" /></td>
+							<td align="right"><input type="button" onclick="load('home.html')" value="Cancel" /></td>
 						</tr>
 					</table>
 				</td>
