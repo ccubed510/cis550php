@@ -2,13 +2,65 @@ div.panel, p.flip, div.optionsPanel, p.optionsToggle {
 	margin: 0px;
 	padding: 5px;
 	text-align: center;
-	background: #E5EECC;
 	border: solid 1px #C3C3C3;
 }
+
 div.panel {
 	height: 300px;
 	display: none;
 }
+
+p.optionsToggle {
+	background: #6F7D94;
+	color: #FFFFFF;
+}
+
 div.optionsPanel {
 	display: none;
+	background: #EDEDED;
+}
+
+#container {
+    width: 1000px;
+    margin:0 auto;
+    position:relative;
+}
+
+#profile, #feed {
+	padding:15px;
+	position:relative;
+	vertical-align:text-top;
+}
+
+#friendRec, #circle {
+	position:relative;
+	vertical-align:text-top;
+}
+
+#profile {
+	width:40%;
+}
+
+#feed {
+	width:60%;
+}
+
+.header {
+	background: #6F7D94;
+	padding: 0 10px 0 10px;
+	height: 60px;
+}
+
+.panel {
+	background: #EDEDED;
+	padding:15px;
+}
+
+h1 {
+	font-size: 24pt;
+	color: #ffffff;
+}
+
+h2, h3{
+	font-family: Palatino Linotype;
 }

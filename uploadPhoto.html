@@ -86,6 +86,11 @@
 				margin-left: 3em;
 			}
 			
+			.panel {
+				background: #EDEDED;
+				padding:15px;
+			}
+			
 			h1 {
 				font-size: 24pt;
 				color: #ffffff;
@@ -105,24 +110,22 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
+				<td class="panel">
 					<div id="uploadForm">
 						<form name="upload">
-							<fieldset>
-								<br />
-								URL:<input type="text" id="url" size="101" /><br />
-								<br />
-								Visibility: <br />
-								<input class="indent" type="radio" name="visibility" id="pub" onclick="radioChecker()" checked /> Public<br />
-								<input class="indent" type="radio" name="visibility" id="users" onclick="radioChecker();" /> Limit to users (specify by "firstname lastname" with semicolons between friends):<br />
-								<label class="indent3"><i>E.g. John Doe;Zack Ives;Barack Obama</i></label><br />
-								<input class="indent2" type="text" name="userList" id="userList" disabled="true" size="100" /> <br />
-								<input class="indent" type="radio" name="visibility" id="circles" onclick="radioChecker();" /> Limit to circles (specify by "circle name" with semicolons between circles): <br />
-								<label class="indent3"><i>E.g. Friends;Co-workers:Family</i></label><br />
-								<input class="indent2" type="text" name="circleList" id="circleList" disabled="true" size="100" /> </br />
-								<br />
-								<input type="button" onclick="formsubmit()" value="Upload" />
-							</fieldset>
+							<br />
+							URL:<input type="text" id="url" size="101" /><br />
+							<br />
+							Visibility: <br />
+							<input class="indent" type="radio" name="visibility" id="pub" onclick="radioChecker()" checked /> Public<br />
+							<input class="indent" type="radio" name="visibility" id="users" onclick="radioChecker();" /> Limit to users (specify by "firstname lastname" with semicolons between friends):<br />
+							<label class="indent3"><i>E.g. John Doe;Zack Ives;Barack Obama</i></label><br />
+							<input class="indent2" type="text" name="userList" id="userList" disabled="true" size="100" /> <br />
+							<input class="indent" type="radio" name="visibility" id="circles" onclick="radioChecker();" /> Limit to circles (specify by "circle name" with semicolons between circles): <br />
+							<label class="indent3"><i>E.g. Friends;Co-workers:Family</i></label><br />
+							<input class="indent2" type="text" name="circleList" id="circleList" disabled="true" size="100" /> </br />
+							<br />
+							<input type="button" onclick="formsubmit()" value="Upload" />
 						</form>
 					</div>
 				</td>

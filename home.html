@@ -2,29 +2,57 @@
 	<head>
 		<title> CIS 550 Project </title>
 		<script type="text/javascript" src="/js/home.js"></script>
+		<style type="text/css">
+			#container {
+			    width: 1000px;
+			    margin:0 auto;
+			    position:relative;
+			}
+			
+			.header {
+				background: #6F7D94;
+				padding: 0 10px 0 10px;
+				height: 60px;
+			}
+			
+			.panel {
+				background: #EDEDED;
+				padding:15px;
+			}
+			
+			h1 {
+				font-size: 24pt;
+				color: #ffffff;
+			}
+		</style>
 	</head>
 	<body>
-		<h1>PENN PHOTO</h1>
-		<br/> 
-
-		<div id="loginform" >
-			<form name="login">
-				<fieldset>
-					<label> Username: </label>
-					<input type="text" id="userName"/>
-					<label> Password: </label>
-					<input type="password" id="password"/>
-					<input type="button" onclick="formsubmit()" value="Login" />
-				</fieldset>
-			</form>
-		</div>
-		<!--<div id="user">
-			Person information will be listed here.
-		</div>-->
-		<form method="LINK" action="createUser.html">
-			New to PennPhoto?
-			<input type="submit" value="SIGN ME UP!" />
-		</form>
+		<table id="container">
+			<tr>
+				<td class="header"><h1>PENN PHOTO</h1></td>
+			</tr>
+			<tr>
+				<td class="panel">
+					<div id="loginform" >
+						<form name="login">
+							<label> Username: </label>
+							<input type="text" id="userName"/>
+							<label> Password: </label>
+							<input type="password" id="password"/>
+							<input type="button" onclick="formsubmit()" value="Login" />
+						</form>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form method="LINK" action="createUser.html">
+						New to PennPhoto?
+						<input type="submit" value="SIGN ME UP!" />
+					</form>
+				</td>
+			</tr>
+		</table>
 		<script type="text/javascript"> checkCookie(); </script>
 	</body>
 </html>

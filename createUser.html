@@ -54,70 +54,109 @@
 				} 
 			}
 			
+			function load(url) {
+				location.href = url;
+			}
+			
 		</script>
+		
+		<style type="text/css">
+			#container {
+			    width: 1000px;
+			    margin:0 auto;
+			    position:relative;
+			}
+			
+			.header {
+				background: #6F7D94;
+				padding: 0 10px 0 10px;
+				height: 60px;
+			}
+			
+			.panel {
+				background: #EDEDED;
+				padding:15px;
+			}
+			
+			h1 {
+				font-size: 24pt;
+				color: #ffffff;
+			}
+		</style>
 	</head>
 	<title> CIS 550 Project </title>
 	<body>
-		Create new User 
-		<div id="loginform" >
-			<form name="login">
-				<table>
-					<tr>
-						<td><label> Username: </label></td>
-						<td><input type="text" id="userName"/></td>
-					</tr>
-					<tr>
-						<td><label> Password: </label></td>
-						<td><input type="password" id="password"/></td>
-					</tr>
-					<tr>
-						<td><label> First name: </label></td>
-						<td><input type="text" id="firstName"/></td>
-					</tr>
-					<tr>
-						<td><label> Last name: </label></td>
-						<td><input type="text" id="lastName"/></td>
-					</tr>
-					<tr>
-						<td><label> Email: </label></td>
-						<td><input type="text" id="email"/></td>
-					</tr>
-					<tr>
-						<td><label> Birthday (yyyy-mm-dd): </label></td>
-						<td><input type="text" id="birthdate"/></td>
-					</tr>
-					<tr>
-						<td><label> Institution Attended: </label></td>
-						<td><input type="text" id="institution"/></td>
-					</tr>
-					<tr>
-						<td><label> Gender: </label></td>
-						<td><input type="text" id="gender"/></td>
-					</tr>
-					<tr>
-						<td><label> Address: </label></td>
-						<td><input type="text" id="address"/></td>
-					</tr>
-					<tr>
-						<td><label> Interests: </label></td>
-						<td><input type="text" id="interests"/></td>
-					</tr>
-					<tr> <td><label> Student or Professor: </label>
-						<select id="roles" onchange="javascript:selectRole();">
-							<option></option>
-							<option value="student"> Student </option>
-							<option value="professor"> Professor </option>
-						</select></td>
-					</tr>
-					<tr id="roleinfo"> </tr>
-					
-					
-					
-					
-					<tr><input type="button" onclick="formsubmit()" value="Create User" /></tr>
-					<tr><td><div id="user"></div></td></tr>
-				</table>
-			</form>
-		</div>
+		<table id="container">
+			<tr>
+				<td class="header">
+					<table width="100%">
+						<tr>
+							<td><h1>Create a New Account</h1></td>
+							<td align="right"><input type="button" onclick="load('getuserinfo.php')" value="Cancel" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="panel">
+					<div id="loginform" >
+						<form name="login">
+							<table>
+								<tr>
+									<td><label> Username: </label></td>
+									<td><input type="text" id="userName"/></td>
+								</tr>
+								<tr>
+									<td><label> Password: </label></td>
+									<td><input type="password" id="password"/></td>
+								</tr>
+								<tr>
+									<td><label> First name: </label></td>
+									<td><input type="text" id="firstName"/></td>
+								</tr>
+								<tr>
+									<td><label> Last name: </label></td>
+									<td><input type="text" id="lastName"/></td>
+								</tr>
+								<tr>
+									<td><label> Email: </label></td>
+									<td><input type="text" id="email"/></td>
+								</tr>
+								<tr>
+									<td><label> Birthday (yyyy-mm-dd): </label></td>
+									<td><input type="text" id="birthdate"/></td>
+								</tr>
+								<tr>
+									<td><label> Institution Attended: </label></td>
+									<td><input type="text" id="institution"/></td>
+								</tr>
+								<tr>
+									<td><label> Gender: </label></td>
+									<td><input type="text" id="gender"/></td>
+								</tr>
+								<tr>
+									<td><label> Address: </label></td>
+									<td><input type="text" id="address"/></td>
+								</tr>
+								<tr>
+									<td><label> Interests: </label></td>
+									<td><input type="text" id="interests"/></td>
+								</tr>
+								<tr> <td><label> Student or Professor: </label>
+									<select id="roles" onchange="javascript:selectRole();">
+										<option></option>
+										<option value="student"> Student </option>
+										<option value="professor"> Professor </option>
+									</select></td>
+								</tr>
+								<tr id="roleinfo"> </tr>
+								<tr><td><div id="user"></div></td></tr>
+								<tr><td><input type="button" onclick="formsubmit()" value="Create User" /><td></tr>
+							</table>
+						</form>
+					</div>
+				</td>
+			</tr>
+		</table> 
 	</body>
 </html>
