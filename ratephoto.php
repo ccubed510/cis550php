@@ -6,20 +6,24 @@
 	</head>
 	<title> Photo Rater </title>
 	<body>
+		<script type="text/javascript">
+			function load(url) {
+				location.href = url;
+			}	
+		</script>
 		<div class="container">
 			<div class="header">
-				<h1>Rate a photo, <? echo $_COOKIE["username"];?>!</h1>
-				<br/>
+				<table width="100%">
+				<tr>
+				<td><h1>View / Rate a Photo</h1></td>
+				<td align="right"><input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" /></td>
+				</tr>
+				</table>
 			</div>
 			<div class="content">
-				<script type="text/javascript">
-				function load(url) {
-					location.href = url;
-				}	
-				</script>
 				<table border="0" width="100%"><tr>
-				<td align="left" width="50%"><input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" /></td>
-				<td align="right" width="50%"><input type="button" id="search" onclick="load('searchphotos.php')" value="Search Photos" /><td>
+				<td align="left" width="50%"><input type="button" id="search" onclick="load('searchphotos.php')" value="Search Photos" /></td>
+				<td align="right" width="50%"><td>
 				</tr></table>
 				<div id="info" ></div>
 				<div id="gallery">

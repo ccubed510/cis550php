@@ -69,23 +69,26 @@
 	</head>
 	<title>Search Photos</title>
 	<body>
+		<script type="text/javascript">
+			function load(url) {
+				location.href = url;
+			}	
+		</script>
 		<div class="container">
 			<div class="header">
 				<div>
-					<h1>Search your visible photos</h1>
+					<table width="100%"><tr>
+						<td><h1>Search Your Visible Photos</h1></td>
+						<td align="right"><input type="button" id="back" onclick="load('ratephoto.php')" value="Back to Photos" />
+							<input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" /></td>
+					</tr></table>
 				</div>
 			</div>
 			<div class="content">
 				<div id="searchform" >
 					<div id="logout">
-						<script type="text/javascript">
-						function load(url) {
-							location.href = url;
-						}	
-						</script>
-						<input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" />
 					</div>
-					<br/>
+				
 					Please enter the photo tags you would like to search (leave spaces between the tags)
 					<form name="login">
 						<fieldset>
