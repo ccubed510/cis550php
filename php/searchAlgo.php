@@ -90,7 +90,12 @@ function getMatch(&$photoID, &$tag) {
 		$count++;
 		}
 	}
-	return max($tagArray);
+	if(sizeof($tagArray) > 0){
+		return max($tagArray);
+	}
+	else {
+		return 0;
+	}
 }
 
 //takes as a parameter two tags with positions p1 and p2
