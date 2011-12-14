@@ -187,13 +187,14 @@
 	if (mysql_num_rows($test) == 0) {
 		//echo "Error: unable to get temp recommendations.";
 	} else {
-		echo "<td><b>Friend Recommendations</b></td>";
+		echo "<td class='friendRec' id='friendRec' colspan='2'><hr><b>Friend Recommendations</b>";
 		echo "<table>";
 	while($row = mysql_fetch_array($test)){
 		$circleRec = getCircleRecs($row['UID']);
 		echo "<tr><td><a href=\"/addFriend.php?first=".$row['first']."&last=".$row['last']."&circle=".$circleRec."\">" .$row['first']." ".$row['last'] . "</a></td></tr>";				
 	}
-	echo "</table>";
+	echo "</table><hr>";
+	echo "</td>";
 	}
 	
 	$query = "DROP TABLE recs";
