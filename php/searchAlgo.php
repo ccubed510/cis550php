@@ -152,4 +152,5 @@ function matchCost(&$char1, &$char2) {
 	}
 	return -1;
 }
+mysql_close($link);
 ?>

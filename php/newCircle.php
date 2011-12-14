@@ -25,4 +25,6 @@
 	//Create new circle.
 	mysql_query("INSERT into Circle (userID, name) VALUES ('".$userID."', '".$newCircle."')");
 	echo "New circle '".$newCircle."' has been successfully added.";
+	
+	mysql_close($link);
 ?>

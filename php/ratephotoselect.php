@@ -24,6 +24,6 @@ while($row = mysql_fetch_array($query)){
 //echo "</tr>";
 //echo "<tr>";
 
-
+mysql_close($link);
 ?>
 

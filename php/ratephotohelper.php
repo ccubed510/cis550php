@@ -33,5 +33,6 @@ if (mysql_fetch_row($permission) != NULL) {
 } else {
 	echo "You cannot rate this photo.";
 }
+mysql_close($link);
 ?>
 

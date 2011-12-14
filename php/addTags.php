@@ -31,5 +31,6 @@ foreach($tags as $tag){
 		mysql_query("INSERT INTO Post (userID, action, objectID, time) VALUES ('".$userID."', 'tagged', '".$row['photoID']."',NOW())");
 	}
 }
+mysql_close($link);
 ?>
 
