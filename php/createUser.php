@@ -31,7 +31,7 @@ $hashedpw = hash('md5',$password);
 
 $check = mysql_query("SELECT * FROM User WHERE User.userName = '" . $user . "'");
 $rowcheck = mysql_fetch_row($check);
-echo $rowcheck;
+//echo $rowcheck;
 if ($rowcheck != NULL) {
 	echo "Username already exists!";
 } else {
@@ -49,10 +49,10 @@ if ($rowcheck != NULL) {
 			foreach ($interests as $int) {
 				mysql_query("INSERT INTO Interests (userID, interest) VALUES ('" . $userID . "', '" . $int . "')");
 			}
-			echo "Success, added " . $user . " to the database. Please return to <a href='home.html'> home to login </a>";
+			echo "Success, added " . $user . " to the database.";
 
 		} else {
-			echo "Professor does not exist. Please try again." . $advisedBy;
+			echo "Professor ". $advisedBy." does not exist. Please try again." ;
 		}
 	} else {
 		$result = mysql_query("INSERT INTO User (first_name, last_name, email, birth_date, gender, address, password, userName) VALUES ('" . $fname . "', '" . $lname . "', '" . $email . "', '" . $bdate . "', '" . $gender . "', '" . $address . "', '" . $hashedpw . "', '" . $user . "')");
@@ -64,7 +64,7 @@ if ($rowcheck != NULL) {
 		foreach ($interests as $int) {
 			mysql_query("INSERT INTO Interests (userID, interest) VALUES ('" . $userID . "', '" . $int . "')");
 		}
-		echo "Success, added " . $user . " to the database. Please return to <a href='home.html'> home to login </a>";
+		echo "Success, added " . $user . " to the database.";
 
 	}
 
