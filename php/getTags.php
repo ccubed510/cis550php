@@ -20,5 +20,6 @@ while($tagarray = mysql_fetch_array($tquery)){
 	$tag = $tagarray['tag'];
 	echo $tag."<br/>";
 }
+mysql_close($link);
 ?>
 
