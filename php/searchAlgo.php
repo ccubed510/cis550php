@@ -46,7 +46,6 @@ if (strlen($circles) > 0) {
 $pquery = mysql_query($query);
 
 $searchArray[] = Array();
-
 //search by tag
 if (strlen($tags) > 0) {
 	while ($p = mysql_fetch_array($pquery)) {
@@ -79,16 +78,13 @@ if (strlen($tags) > 0) {
 } else {
 	//search by user/circle
 	$pquery = mysql_query($query);
-	if (sizeof($pquery > 0)) {
-		while ($p = mysql_fetch_array($pquery)) {
-			$pquery = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $photo . "\"");
-			$p = mysql_fetch_array($pquery);
-			$url = $p['url'];
-			$pID = $p['photoID'];
-			echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $photo . "'/></td>";
-		}
-	} else {
-		echo "Images not found. Please try again.";
+	while ($p = mysql_fetch_array($pquery)) {
+		$pID = $p['photoID'];
+		$pq = mysql_query("SELECT url FROM Photo WHERE photoID = \"" . $pID . "\"");
+		$p = mysql_fetch_array($pq);
+		$url = $p['url'];
+		echo "<td><img src='" . $url . "' height='100' onclick='selectPhoto(this)' id = '" . $pID . "'/></td>";
+
 	}
 
 }
@@ -152,5 +148,6 @@ function matchCost(&$char1, &$char2) {
 	}
 	return -1;
 }
+
 mysql_close($link);
 ?>
