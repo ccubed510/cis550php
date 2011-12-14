@@ -78,7 +78,12 @@
 			<div class="content">
 				<div id="searchform" >
 					<div id="logout">
-						<a href="getuserinfo.php">Home</a>
+						<script type="text/javascript">
+						function load(url) {
+							location.href = url;
+						}	
+						</script>
+						<input type="button" id="home" onclick="load('getuserinfo.php')" value="Home" />
 					</div>
 					<br/>
 					Please enter the photo tags you would like to search (leave spaces between the tags)
