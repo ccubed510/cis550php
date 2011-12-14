@@ -1,0 +1,21 @@
+userID,first_name,last_name,email,birth_date,gender,address,password,userName
+11000,Nick,Arnopoulos,nick@seas.upenn.edu,,M,,M11000,Nick11000
+11002,Jacques,Zelle,jzelle@seas.upenn.edu,,M,,M11002,Jacques11002
+11003,Dustiz,Moreno,moreno@seas.upenn.edu,,M,,M11003,Dustiz11003
+11004,Akim,Akim,akimakim@seas.upenn.edu,,M,,M11004,Akim11004
+11005,Philipp,Vasilakis,germany@seas.upenn.edu,,M,,M11005,Philipp11005
+11007,Silvia,Smith,smith@gmail.com,,F,,F11007,Silvia11007
+11008,Katerina,Marinaki,aimar@seas.upenn.edu,,F,,F11008,Katerina11008
+11010,Joe,Dalton,joe@seas.upenn.edu,,M,,M11010,Joe11010
+11011,William,Dalton,will@seas.upenn.edu,,M,,M11011,William11011
+11012,Jack,Dalton,jack@seas.upenn.edu,,M,,M11012,Jack11012
+11013,Averell,Dalton,averell@seas.upenn.edu,,M,,M11013,Averell11013
+11014,Lucky,Luke,luke@seas.upenn.edu,,M,,M11014,Lucky11014
+11015,Billy,the Kid,billy@seas.upenn.edu,,M,,M11015,Billy11015
+11016,Calamity,Jane,Jane@seas.upenn.edu,,F,,F11016,Calamity11016
+11017,Asterix,,asterix@seas.upenn.edu,,M,,M11017,Asterix11017
+11018,Obelix,,obelix@seas.upenn.edu,,M,,M11018,Obelix11018
+11019,Napoleon,,nap@seas.upenn.edu,,M,,M11019,Napoleon11019
+11001,Joseph,Tournas,tournas@seas.upenn.edu,,M,,M11001,Joseph11001
+11006,Dude,Brown,dude@seas.upenn.edu,,M,,M11006,Dude11006
+11009,Kostas,Daniilidis,costas@cis.upenn.edu,,M,,M11009,Kostas11009

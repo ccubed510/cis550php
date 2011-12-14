@@ -1,0 +1,20 @@
+userID,first_name,last_name,email,birth_date,gender,address,password,userName
+28531,Monisha,Sarabhai,moni.sara@gmail.com,1980-11-11,female,"1 Pine, Philadelphia, Pennsylvania 19104 USA",wellsaid,monisha
+28532,Maya,Sarabhai,maya.sarabhai@gmail.com,1979-11-11,female,"2 Spruce, Philadelphia, Pennsylvania 19104 USA",well done,maya
+28533,Satish,Shah,satish.shah@gmail.com,1977-11-11,male,"3 Locust, Philadelphia, Pennsylvania 19104 USA",shah,satish
+28534,Manish,Shah,manish.shah@gmail.com,1976-11-11,male,"4 Walnut, Philadelphia, Pennsylvania 19104 USA",shah,manish
+28535,Rosesh,Sarabhai,rosi.sara@gmail.com,1979-11-11,male,"5 Chestnut, Philadelphia, Pennsylvania 19104 USA",wellok,rosesh
+28001,Elliot,Reid,ereed@gmail.com,1976-08-27,F,"4224 Locust Street, Philadelphia, Pennsylvania 19104 USA",ereed123,ereed
+28002,John,Durian,johnd@gmail.com,1976-01-22,M,"4214 Wall Street, Philadelphia, Pennsylvania 19104 USA",johnd123,johnd
+28003,Dr. Parry,Cox,dcox@gmail.com,1971-01-22,M,"2312 Walnut Street, Philadelphia, Pennsylvania 19104 USA",dcox123,dcox
+28004,Christopher,Turk,cturk@gmail.com,1977-04-30,M,"3424 John F. K. Boulevard, Philadelphia, Pennsylvania 19104 USA",turk123,turk
+28511,Gyan,Dwivedi,tns:gstar@gmail.com,1984-03-18,male,"304 3920 Pine St, Philadelphia, PA 19104 USA",johhnycash,stargyan
+28512,Manasi,Gupta,guptaonline@gmail.com,1984-01-01,female,"14 44 Spruce St, Philadelphia, PA 19104 USA",dillichalo,mgupta
+28513,Priyanka,Pani,ppani@gmail.com,1984-11-11,female,"24 1101 Spruce St, Philadelphia, PA 19104 USA",bbsrrocks,ppani
+28514,Steve,Jobs,spjobs@gmail.com,1967-12-11,male,"12 33 Walnut St, Philadelphia, PA 19104 USA",forevertogo,stevejobs
+28515,Geetha,Maiya,geetha.m@gmail.com,1977-07-15,female,"12 Locust, Philadelphia, Pennsylvania 19104 USA",omjaijagdeesh,maharini
+28021,dushyanth,subramanya,dushs@seas.upenn.edu,1987-02-11,male,"3600 Chestnut Street, Philadelphia, PA 19104 USA",khuljasimsim,dushs
+28022,ekta,chander,ekta@gmail.com,2009-11-11,female,"123South 39th street, Philadelphia, PA 19104 USA",JaiMataDi,ekta
+28023,Chetan,Singh,chetans@seas.upenn.edu,2009-11-11,male,"7600 superAwesomeStreet, Philadelphia, PA 19104 USA",SinghIsKing!,ChetanS
+28024,sana,haque,sanhaque@gmail.com,1987-02-11,female,"4300 Walnut Street, Philadelphia, PA 19104 USA",ILoveInsomniaCookies!,sanhaque
+28025,Rowan,Atkinson,bean@gmail.com,1987-02-11,male,"2300 Hilarity Street, Philadelphia, PA 19104 USA",IMakePeopleLaughTheirAssOff,Mr.Bean
