@@ -27,9 +27,9 @@
 					?>
 				</div>
 				
-				<table width="600px" align="left" id="extra" class="hidden">
+				<table width="600px" align="center" id="extra" class="hidden">
 					<tr>
-						<td width="20%" valign="top" bgcolor="6F7D94"><h2>Tags</h2><div id="tags"></div></td>
+						<td width="25%" valign="top" bgcolor="A4B2CA" style="padding: 10"><h2>Tags</h2><div id="tags"></div></td>
 						<td ><div class="photo" id="mainPhoto"></div></td>
 					</tr>
 					<tr>
