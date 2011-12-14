@@ -182,7 +182,7 @@
 	}
 	
 	//query temp table for top 3 potential friends
-	$query = "SELECT U.userID as UID, U.first_name AS first, U.last_name AS last FROM User U, (SELECT friendID, SUM(score) AS score FROM recs GROUP BY friendID ORDER BY score DESC LIMIT 3) T WHERE U.userID = friendID";
+	$query = "SELECT U.userID as UID, U.first_name AS first, U.last_name AS last FROM User U, (SELECT friendID, SUM(score) AS score FROM recs WHERE score>0 GROUP BY friendID ORDER BY score DESC LIMIT 3) T WHERE U.userID = friendID";
 	$test = mysql_query($query);
 	if (mysql_num_rows($test) == 0) {
 		//echo "Error: unable to get temp recommendations.";

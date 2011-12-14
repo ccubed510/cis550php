@@ -12,7 +12,16 @@
     mysql_select_db($db_name, $link);
     $user = $_GET["userName"];
     $password = $_GET["password"];
-    $result = mysql_query("SELECT * FROM User WHERE userName = '".$user."' AND password = '".$password."'");
+	$hashedpw = hash('md5',$password);
+	
+	$temp = mysql_query("SELECT userID FROM User WHERE userName = '".$user."'");
+	$row = mysql_fetch_array($temp);
+	$userID = $row['userID'];
+	if($userID<28549){
+		$result = mysql_query("SELECT * FROM User WHERE userName = '".$user."' AND password = '".$password."'");
+	} else {
+    	$result = mysql_query("SELECT * FROM User WHERE userName = '".$user."' AND password = '".$hashedpw."'");
+	}
 		
     if(mysql_num_rows($result)==0) {
     	echo "error";
