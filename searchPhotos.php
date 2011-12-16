@@ -112,7 +112,7 @@
 							<input type="text" id="circles" onclick="showCircles()"/>
 							<label id="circlesInfo"></label>
 							<br/>
-							<label> Filter by Friends: </label>
+							<label> Filter by Friends (User Name): </label>
 							<input type="text" id="friends" />
 							<input type="button" onclick="formsubmit()" value="Search" />
 						</fieldset>
