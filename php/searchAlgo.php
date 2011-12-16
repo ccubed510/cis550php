@@ -20,7 +20,7 @@ $friendarray = explode(" ", $friends);
 $circles = $_GET['circles'];
 $circlearray = explode(" ", $circles);
 
-$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, Circle C, User U WHERE ((P.photoID = V.photoID AND V.viewerID = \"" . $userID . "\") OR P.Visibility='public')";
+$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, User U, Friend F WHERE ((P.photoID = V.photoID AND V.viewerID = \"" . $userID . "\") OR P.Visibility='public')";
 if (strlen($friends) > 0) {
 	$friend1 = $friendarray[0];
 	$query = $query . " AND (U.userID = P.userID AND (U.userName = '" . $friend1 . "'";
@@ -34,14 +34,14 @@ if (strlen($friends) > 0) {
 }
 if (strlen($circles) > 0) {
 	$circle1 = $circlearray[0];
-	$query = $query . " AND (C.circleID = '" . $circle1 . "'";
+	$query = $query . " AND (P.userID = F.friendID AND (F.circleID = '" . $circle1 . "'";
 
 	foreach ($circlearray as $circle) {
 		if ($circle != $circle1) {
-			$query = $query . " OR C.circleID = '" . $circle . "'";
+			$query = $query . " OR F.circleID = '" . $circle . "'";
 		}
 	}
-	$query = $query . ")";
+	$query = $query . "))";
 }
 $pquery = mysql_query($query);
 
