@@ -57,6 +57,19 @@
 					}
 				}
 			}
+			
+			function showCircles() {
+				xmlhttp = new XMLHttpRequest();
+				xmlhttp.onreadystatechange = function() {
+					if(xmlhttp.readyState == 4) {
+						if (document.getElementById("circlesInfo").innerHTML == "") {
+							document.getElementById("circlesInfo").innerHTML = "<br />" + xmlhttp.responseText;
+						}
+					}
+				}
+				xmlhttp.open("GET", "/php/getCircles.php", true);
+				xmlhttp.send(null);
+			}
 
 			function verifyFriends(friends) {
 
@@ -96,10 +109,11 @@
 							<input type="text" id="tags"/>
 							<br/>
 							<label> Filter by Circles: </label>
-							<input type="text" id="circles"/>
+							<input type="text" id="circles" onclick="showCircles()"/>
+							<label id="circlesInfo"></label>
 							<br/>
 							<label> Filter by Friends: </label>
-							<input type="text" id="friends"/>
+							<input type="text" id="friends" />
 							<input type="button" onclick="formsubmit()" value="Search" />
 						</fieldset>
 					</form>
