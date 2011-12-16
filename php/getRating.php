@@ -45,7 +45,7 @@ $number = log($ncount + 0.5*$fcount);
 $sum = ($nsum + 0.5*$fsum) / $ncount;
 $relevance = 0.2*$number + 0.8*$sum; 
 $r = number_format($relevance, 2);
-echo "Average score for photo ".$photoID." is : " . $r;
+echo "Relevance score for photo ".$photoID." is : " . $r;
  
 }
 else {
