@@ -22,7 +22,7 @@
 			</div>
 			<div class="content">
 				<table border="0" width="100%"><tr>
-				<td align="left" width="50%"><input type="button" id="search" onclick="load('searchphotos.php')" value="Search Photos" /></td>
+				<td align="left" width="50%"><input type="button" id="search" onclick="load('searchPhotos.php')" value="Search Photos" /></td>
 				<td align="right" width="50%"><td>
 				</tr></table>
 				<div id="info" ></div>

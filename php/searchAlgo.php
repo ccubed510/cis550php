@@ -20,17 +20,17 @@ $friendarray = explode(" ", $friends);
 $circles = $_GET['circles'];
 $circlearray = explode(" ", $circles);
 
-$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, Circle C WHERE ((P.photoID = V.photoID AND V.viewerID = \"" . $userID . "\") OR P.Visibility='public')";
+$query = "SELECT DISTINCT P.photoID AS photoID FROM Visible V, Photo P, Circle C, User U WHERE ((P.photoID = V.photoID AND V.viewerID = \"" . $userID . "\") OR P.Visibility='public')";
 if (strlen($friends) > 0) {
 	$friend1 = $friendarray[0];
-	$query = $query . " AND (P.userID = '" . $friend1 . "'";
+	$query = $query . " AND (U.userID = P.userID AND (U.userName = '" . $friend1 . "'";
 
 	foreach ($friendarray as $friend) {
 		if ($friend != $friend1) {
-			$query = $query . " OR P.userID = '" . $friend . "'";
+			$query = $query . " OR U.userName = '" . $friend . "'";
 		}
 	}
-	$query = $query . ")";
+	$query = $query . "))";
 }
 if (strlen($circles) > 0) {
 	$circle1 = $circlearray[0];
