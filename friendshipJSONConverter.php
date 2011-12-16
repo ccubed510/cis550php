@@ -77,20 +77,22 @@
 			$advisee = mysql_fetch_array($advisees);
 			$student = $advisee['advisee'];
 			$a = mysql_query("SELECT userID, first_name, last_name FROM User WHERE userName = '".$student."'");
-			$aRow = mysql_fetch_array($a);
-			$studentID = $aRow['userID'];
-			$studentName = getName($aRow);
-			$child['id'] = $studentID;
-			$child['name'] = $studentName;
-			//Get photos.
-			$photos = array();
-			$p = mysql_query("SELECT url FROM Photo WHERE userID = '".$studentID."' AND photoID IN (SELECT photoID FROM Photo P2 WHERE P2.Visibility = 'public' UNION SELECT photoID FROM Visible V WHERE V.viewerID = '".$userID."')");
-			for ($j=0; $j < mysql_num_rows($p) && $j < 4; $j++) {
-				$photo = mysql_fetch_array($p);
-				array_push($photos, array("url" => $photo['url']));
+			if (mysql_num_rows($a) > 0) {
+				$aRow = mysql_fetch_array($a);
+				$studentID = $aRow['userID'];
+				$studentName = getName($aRow);
+				$child['id'] = $studentID;
+				$child['name'] = $studentName;
+				//Get photos.
+				$photos = array();
+				$p = mysql_query("SELECT url FROM Photo WHERE userID = '".$studentID."' AND photoID IN (SELECT photoID FROM Photo P2 WHERE P2.Visibility = 'public' UNION SELECT photoID FROM Visible V WHERE V.viewerID = '".$userID."')");
+				for ($j=0; $j < mysql_num_rows($p) && $j < 4; $j++) {
+					$photo = mysql_fetch_array($p);
+					array_push($photos, array("url" => $photo['url']));
+				}
+				$child['data'] = array("photos" => $photos, "\$type" => "square");
+				array_push($children, $child);
 			}
-			$child['data'] = array("photos" => $photos, "\$type" => "square");
-			array_push($children, $child);
 		}
 	}
 
