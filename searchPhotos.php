@@ -108,7 +108,7 @@
 							<label> Photo tags: </label>
 							<input type="text" id="tags"/>
 							<br/>
-							<label> Filter by Circles: </label>
+							<label> Filter by Circles (IDs): </label>
 							<input type="text" id="circles" onclick="showCircles()"/>
 							<label id="circlesInfo"></label>
 							<br/>

@@ -28,7 +28,7 @@
 	else {
 		for ($i = 0; $i < mysql_num_rows($result); $i++) {
 			$row = mysql_fetch_array($result);
-			echo "<li>".$row['name']."</li>";
+			echo "<li>".$row['name']." (ID:".$row['circleID'].")</li>";
 		}
 	}
 	mysql_close($link);
